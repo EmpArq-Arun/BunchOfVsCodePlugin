@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; img-src {{cspSource}} data:; style-src {{cspSource}} 'unsafe-inline'; script-src 'nonce-{{nonce}}';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{styleUri}}" />
+  <title>Serial Plotter</title>
+  <style>
+    .grid {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: grid;
+      gap: 6px;
+      padding: 6px;
+      overflow: auto;
+    }
+    .chart {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 140px;
+      border: 1px solid var(--stp-border);
+      border-radius: var(--stp-radius);
+      background: var(--vscode-editor-background);
+      overflow: hidden;
+    }
+    .chart-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 2px 6px;
+      font-size: 11px;
+      border-bottom: 1px solid var(--stp-border);
+      background: var(--vscode-editorWidget-background, transparent);
+    }
+    .chart-head .title { font-weight: 600; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px; overflow: hidden; }
+    .legend span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+    .legend i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+    .chart canvas { flex: 1 1 auto; width: 100%; display: block; }
+    .empty-note { padding: 16px; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <strong>Plotter</strong>
+    <span class="muted" id="summary"></span>
+    <div class="sep"></div>
+    <label class="field">layout
+      <select id="layout">
+        <option value="auto">auto</option>
+        <option value="1">1 column</option>
+        <option value="2">2 columns</option>
+        <option value="3">3 columns</option>
+        <option value="4">4 columns</option>
+      </select>
+    </label>
+    <label class="field">points <input id="points" type="number" min="10" max="20000" step="10" value="600" style="width:78px" /></label>
+    <label class="field">x-axis
+      <select id="xmode"><option value="time">time (s)</option><option value="index">sample #</option></select>
+    </label>
+    <label class="field"><input type="checkbox" id="autoscale" checked /> auto-scale Y</label>
+    <label class="field">y-min <input id="ymin" type="number" step="any" style="width:70px" disabled /></label>
+    <label class="field">y-max <input id="ymax" type="number" step="any" style="width:70px" disabled /></label>
+    <label class="field"><input type="checkbox" id="combine" /> combine all into #1</label>
+    <div class="spacer"></div>
+    <button class="secondary" id="pause">Pause</button>
+    <button class="secondary" id="clear">Clear</button>
+  </div>
+  <div class="grid" id="grid"></div>
+  <p class="muted empty-note" id="empty">
+    No plotted data yet. In the Terminal window enable <em>Plot</em> on a command, pick its channels and graph window,
+    then start it. Up to 16 windows are supported.
+  </p>
+  <script nonce="{{nonce}}" src="{{scriptUri}}"></script>
+</body>
+</html>

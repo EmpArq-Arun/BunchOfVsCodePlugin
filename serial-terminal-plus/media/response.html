@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; img-src {{cspSource}} data:; style-src {{cspSource}} 'unsafe-inline'; script-src 'nonce-{{nonce}}';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{styleUri}}" />
+  <title>Serial Response</title>
+  <style>
+    .content { overflow: auto; padding-bottom: 12px; }
+    .value-box {
+      width: 100%;
+      text-align: right;
+      font-family: var(--vscode-editor-font-family, Consolas, monospace);
+      background: var(--vscode-input-background);
+      border: 1px solid var(--stp-border);
+      border-radius: var(--stp-radius);
+      padding: 2px 6px;
+      transition: background-color 240ms ease, border-color 240ms ease;
+    }
+    .value-box.flash {
+      background: var(--vscode-inputValidation-infoBackground, rgba(79, 195, 247, 0.22));
+      border-color: var(--vscode-focusBorder);
+    }
+    .cmd-group th {
+      background: var(--vscode-editorWidget-background, var(--vscode-editor-background));
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 12px;
+      opacity: 1;
+      position: static;
+    }
+    .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 6px; }
+    td.raw { max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: 0.7; }
+    .stale { opacity: 0.45; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <strong>Response</strong>
+    <span class="muted" id="summary"></span>
+    <div class="sep"></div>
+    <label class="field">decimals <input id="decimals" type="number" min="0" max="9" value="3" style="width:56px" /></label>
+    <label class="field"><input type="checkbox" id="showRaw" checked /> raw line</label>
+    <label class="field"><input type="checkbox" id="showRate" checked /> rate</label>
+    <label class="field">filter <input id="filter" placeholder="series" style="width:140px" /></label>
+    <div class="spacer"></div>
+    <button class="secondary" id="freeze">Freeze</button>
+    <button class="secondary" id="clear">Clear</button>
+  </div>
+  <div class="content">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:200px">Series</th>
+          <th style="width:150px">Value</th>
+          <th style="width:70px">Min</th>
+          <th style="width:70px">Max</th>
+          <th style="width:70px">Count</th>
+          <th style="width:80px">Rate</th>
+          <th style="width:110px">Updated</th>
+          <th>Raw</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="muted" id="empty" style="padding: 12px">
+      Waiting for parsed responses… Send a command from the Terminal window with a matching response pattern.
+    </p>
+  </div>
+  <script nonce="{{nonce}}" src="{{scriptUri}}"></script>
+</body>
+</html>

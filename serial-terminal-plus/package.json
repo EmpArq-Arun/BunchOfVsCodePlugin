@@ -1,0 +1,246 @@
+{
+  "name": "serial-terminal-plus",
+  "displayName": "Serial Terminal Plus",
+  "description": "Enhanced serial terminal: scheduled commands with repeat timers, live in-place response window and a 16-window plotter.",
+  "version": "0.2.0",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization",
+    "Debuggers"
+  ],
+  "keywords": [
+    "serial",
+    "uart",
+    "com port",
+    "plotter",
+    "terminal",
+    "embedded"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "serialTerminalPlus.open",
+        "title": "Open Workbench (all windows)",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.openTerminal",
+        "title": "Open Terminal Window",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.openResponse",
+        "title": "Open Response Window",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.openGraph",
+        "title": "Open Graph Window",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.connect",
+        "title": "Connect",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.disconnect",
+        "title": "Disconnect",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.startAll",
+        "title": "Start All Scheduled Commands",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.stopAll",
+        "title": "Stop All Scheduled Commands",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.exportCommands",
+        "title": "Export Command Set",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.importCommands",
+        "title": "Import Command Set",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.toggleLogging",
+        "title": "Start / Stop File Logging",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.startLoggingAs",
+        "title": "Start File Logging As…",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.stopLogging",
+        "title": "Stop File Logging",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.flushLog",
+        "title": "Flush Log Buffer To Disk",
+        "category": "Serial Terminal+"
+      },
+      {
+        "command": "serialTerminalPlus.openLogFile",
+        "title": "Open Current Log File",
+        "category": "Serial Terminal+"
+      }
+    ],
+    "configuration": {
+      "title": "Serial Terminal Plus",
+      "properties": {
+        "serialTerminalPlus.defaultPortConfig": {
+          "type": "object",
+          "default": {
+            "path": "",
+            "baudRate": 115200,
+            "dataBits": 8,
+            "parity": "none",
+            "stopBits": 1,
+            "rtscts": false,
+            "xon": false,
+            "xoff": false
+          },
+          "description": "Default serial port configuration pre-filled in the Terminal window."
+        },
+        "serialTerminalPlus.lineEnding": {
+          "type": "string",
+          "enum": [
+            "none",
+            "\\n",
+            "\\r",
+            "\\r\\n"
+          ],
+          "default": "\\r\\n",
+          "description": "Default line ending appended to transmitted commands."
+        },
+        "serialTerminalPlus.maxGraphWindows": {
+          "type": "number",
+          "default": 16,
+          "minimum": 1,
+          "maximum": 16,
+          "description": "Maximum number of plot windows (hard limit is 16)."
+        },
+        "serialTerminalPlus.maxPointsPerSeries": {
+          "type": "number",
+          "default": 600,
+          "minimum": 10,
+          "maximum": 20000,
+          "description": "Rolling buffer length for every plotted series."
+        },
+        "serialTerminalPlus.terminalScrollback": {
+          "type": "number",
+          "default": 2000,
+          "minimum": 100,
+          "maximum": 100000,
+          "description": "Number of lines retained in the terminal window."
+        },
+        "serialTerminalPlus.logging.autoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically start file logging when a port is connected."
+        },
+        "serialTerminalPlus.logging.directory": {
+          "type": "string",
+          "default": "",
+          "description": "Directory for auto-named log files. Empty uses `<workspace>/serial-logs` (or `~/serial-logs`)."
+        },
+        "serialTerminalPlus.logging.format": {
+          "type": "string",
+          "enum": ["text", "csv", "jsonl"],
+          "enumDescriptions": [
+            "Human readable log lines with direction tags.",
+            "Comma separated values, one row per record (good for Excel).",
+            "One JSON object per line (good for scripts)."
+          ],
+          "default": "text",
+          "description": "File format used for logging."
+        },
+        "serialTerminalPlus.logging.flushKiB": {
+          "type": "number",
+          "default": 64,
+          "minimum": 1,
+          "maximum": 4096,
+          "description": "Amount of data buffered in memory before a single write is issued. Larger values mean fewer, bigger writes and therefore less flash wear."
+        },
+        "serialTerminalPlus.logging.flushIntervalMs": {
+          "type": "number",
+          "default": 10000,
+          "minimum": 0,
+          "description": "Safety-net flush interval in milliseconds, used when the buffer fills slowly. Set to 0 to flush only when the buffer is full or logging stops."
+        },
+        "serialTerminalPlus.logging.maxFileMiB": {
+          "type": "number",
+          "default": 16,
+          "minimum": 0,
+          "description": "Rotate to `name.1.ext` once the active log exceeds this size in MiB. 0 disables rotation."
+        },
+        "serialTerminalPlus.logging.maxFiles": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "description": "Number of rotated log files to keep."
+        },
+        "serialTerminalPlus.logging.includeRx": {
+          "type": "boolean",
+          "default": true,
+          "description": "Log received lines."
+        },
+        "serialTerminalPlus.logging.includeTx": {
+          "type": "boolean",
+          "default": true,
+          "description": "Log transmitted commands."
+        },
+        "serialTerminalPlus.logging.includeInfo": {
+          "type": "boolean",
+          "default": true,
+          "description": "Log connection and error messages."
+        },
+        "serialTerminalPlus.logging.includeSamples": {
+          "type": "boolean",
+          "default": false,
+          "description": "Also log each parsed channel value as its own record. Best combined with the CSV or JSONL format."
+        },
+        "serialTerminalPlus.logging.timestamps": {
+          "type": "boolean",
+          "default": true,
+          "description": "Prefix text-format records with a local timestamp."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run check-types && node esbuild.js --production",
+    "compile": "npm run check-types && node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "check-types": "tsc --noEmit",
+    "pretest": "node scripts/build-tests.js",
+    "test": "node --test test/*.test.js",
+    "package": "npm run vscode:prepublish && npx --yes @vscode/vsce package"
+  },
+  "dependencies": {
+    "serialport": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.23.0",
+    "typescript": "^5.5.4"
+  }
+}
+
