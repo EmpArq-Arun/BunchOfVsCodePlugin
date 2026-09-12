@@ -1,0 +1,253 @@
+{
+  "name": "cpp-callgraph-visualizer",
+  "displayName": "C/C++ Call Graph Visualizer",
+  "description": "Interactive caller/callee call graphs, function-pointer tracing, and class hierarchy diagrams for C/C++.",
+  "version": "2.0.0",
+  "publisher": "ArunnK",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:c",
+    "onLanguage:cpp",
+    "onView:callgraph.explorer"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "callgraph-explorer",
+          "title": "C/C++ Call Graph",
+          "icon": "media/callgraph-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "callgraph-explorer": [
+        {
+          "id": "callgraph.explorer",
+          "name": "Call Graph"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "callgraph.explorer",
+        "contents": "C/C++ Call Graph Visualizer\n\nPlace cursor inside a C/C++ function:\n\n[$(type-hierarchy)  Show Call Graph](command:callgraph.showForCursor)\n\n**Class & UML Diagrams**\n[$(symbol-class)  Inheritance Hierarchy](command:callgraph.showClassDiagram)\n[$(symbol-class)  Full UML (members, methods, all relations)](command:callgraph.showClassUml)\n[$(references)  Class Usage Diagram](command:callgraph.showUsageDiagram)\n\n[$(refresh)  Rebuild Index](command:callgraph.refreshIndex)\n[$(output)  Diagnostics](command:callgraph.showDiagnostics)\n[$(symbol-misc)  List Macro Aliases](command:callgraph.listMacroAliases)\n\n**Shortcuts** `Ctrl+Alt+G` call graph  `Ctrl+Alt+C` class hierarchy"
+      }
+    ],
+    "commands": [
+      {
+        "command": "callgraph.showForCursor",
+        "title": "Call Graph: Show for Function at Cursor",
+        "icon": "$(type-hierarchy)"
+      },
+      {
+        "command": "callgraph.showClassDiagram",
+        "title": "Call Graph: Show Class Hierarchy",
+        "icon": "$(symbol-class)"
+      },
+      {
+        "command": "callgraph.showClassUml",
+        "title": "Call Graph: Show Full UML Class Diagram",
+        "icon": "$(symbol-class)"
+      },
+      {
+        "command": "callgraph.showUsageDiagram",
+        "title": "Call Graph: Show Class Usage Diagram",
+        "icon": "$(references)"
+      },
+      {
+        "command": "callgraph.refreshIndex",
+        "title": "Call Graph: Rebuild Workspace Index",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "callgraph.showDiagnostics",
+        "title": "Call Graph: Show Diagnostics",
+        "icon": "$(output)"
+      },
+      {
+        "command": "callgraph.listMacroAliases",
+        "title": "Call Graph: List All Detected Macro Aliases",
+        "icon": "$(symbol-misc)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "callgraph.showForCursor",
+          "when": "editorLangId == c || editorLangId == cpp",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "callgraph.showForCursor",
+          "when": "view == callgraph.explorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "callgraph.showClassDiagram",
+          "when": "view == callgraph.explorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "callgraph.refreshIndex",
+          "when": "view == callgraph.explorer",
+          "group": "navigation@3"
+        },
+        {
+          "command": "callgraph.showDiagnostics",
+          "when": "view == callgraph.explorer",
+          "group": "navigation@4"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "C/C++ Call Graph",
+      "properties": {
+        "callgraph.buildDirectory": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "markdownDescription": "Path to your build directory that contains `compile_commands.json`, relative to the workspace root (e.g. `build`) or absolute. **Supports a comma-separated list** to try multiple directories in order \u2014 e.g. `\"objects, listings, build, Debug_FLASH\"`. The first directory that contains a `compile_commands.json` is used. Use this **or** `compileCommandsPath` \u2014 if both are set, `compileCommandsPath` wins."
+        },
+        "callgraph.compileCommandsPath": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "markdownDescription": "Full path to `compile_commands.json`. Leave empty to auto-detect from `buildDirectory` or common locations (`build/`, `out/`, `cmake-build-*/`). When found, the extension shells out to your `clangBinaryPath` for edge confirmation and virtual-dispatch candidates."
+        },
+        "callgraph.clangBinaryPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "markdownDescription": "Path to a `clang` or `clang++` binary. Leave empty to use `clang++` on your PATH. **Can be a directory** (e.g. `F:\\\\LLVM-ET-Arm-19\\\\bin\\\\`) \u2014 the extension will append `clang++.exe` (Windows) or `clang++` automatically. For ARM embedded projects, point this to the LLVM Embedded Toolchain for Arm (`LLVM-ET-Arm-XX\\\\bin\\\\`) to enable AST verification on cross-compiled code. Without a compatible clang, the extension runs in pure heuristic mode."
+        },
+        "callgraph.ctagsPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "markdownDescription": "Path to a `ctags` (universal-ctags) binary. When set, the extension uses ctags as an additional cross-reference source in heuristic mode to improve caller/callee coverage beyond what the regex parser alone finds."
+        },
+        "callgraph.cscopePath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "markdownDescription": "Path to a `cscope` binary. When set and a `cscope.out` database exists in the workspace, the extension queries cscope for callers to supplement the heuristic parse."
+        },
+        "callgraph.graphvizDotPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Path to Graphviz dot binary. Optional \u2014 used only for SVG export."
+        },
+        "callgraph.defaultDepth": {
+          "type": "integer",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 20,
+          "scope": "resource",
+          "description": "Default call graph depth when opening a new graph (1-20). The slider always lets you change it interactively."
+        },
+        "callgraph.maxCallerConfirmations": {
+          "type": "integer",
+          "default": 15,
+          "minimum": 1,
+          "scope": "resource",
+          "description": "Maximum number of distinct callers that get an individual clang-verification query per graph load. Callers beyond this cap remain heuristic-only to bound latency."
+        },
+        "callgraph.maxVisibleNodes": {
+          "type": "integer",
+          "default": 500,
+          "minimum": 20,
+          "scope": "resource",
+          "description": "Soft cap on nodes rendered simultaneously. When hit, the panel shows a banner rather than silently truncating."
+        },
+        "callgraph.popup.fontSize": {
+          "type": "integer",
+          "default": 12,
+          "minimum": 8,
+          "maximum": 20,
+          "scope": "window",
+          "description": "Font size (px) for the Ctrl+hover source preview popup."
+        },
+        "callgraph.popup.width": {
+          "type": "integer",
+          "default": 440,
+          "minimum": 200,
+          "maximum": 1200,
+          "scope": "window",
+          "description": "Initial width (px) of the source preview popup. The popup is resizable."
+        },
+        "callgraph.popup.height": {
+          "type": "integer",
+          "default": 280,
+          "minimum": 120,
+          "maximum": 900,
+          "scope": "window",
+          "description": "Initial height (px) of the source preview popup. The popup is resizable."
+        },
+        "callgraph.isrPatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "scope": "resource",
+          "markdownDescription": "Additional regex patterns (case-insensitive, matched against the function name or the ~300 chars preceding it) that identify ISR / interrupt handler functions. Example: `[\"MY_ISR_ATTR\", \"__weak __irq\"]`. Built-in patterns already cover ARM CMSIS `_IRQHandler`, GCC `__attribute__((interrupt))`, AVR `ISR()`, ESP-IDF `IRAM_ATTR`, IAR `__interrupt`, Keil `__irq`, and CCS `#pragma vector=`."
+        },
+        "callgraph.maxAmbiguousLinks": {
+          "type": "integer",
+          "default": 12,
+          "minimum": 1,
+          "maximum": 200,
+          "scope": "resource",
+          "markdownDescription": "Maximum number of cross-file same-name matches shown as `virtualCandidate` edges (for virtual method dispatch). When more matches exist the call is skipped to prevent graph explosion. Increase this when you see `skipping 'GetValue': 42 non-static matches` in the diagnostics and want those virtual candidates included. Default: 12."
+        }
+      }
+    }
+  },
+  "keybindings": [
+    {
+      "command": "callgraph.showForCursor",
+      "key": "ctrl+alt+g",
+      "mac": "cmd+alt+g",
+      "when": "editorLangId == c || editorLangId == cpp"
+    },
+    {
+      "command": "callgraph.showClassDiagram",
+      "key": "ctrl+alt+c",
+      "mac": "cmd+alt+c",
+      "when": "editorLangId == c || editorLangId == cpp"
+    },
+    {
+      "command": "callgraph.refreshIndex",
+      "key": "ctrl+alt+r",
+      "mac": "cmd+alt+r"
+    }
+  ],
+  "scripts": {
+    "build": "node esbuild.config.js",
+    "watch": "node esbuild.config.js --watch",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "node test/run.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "cytoscape": "^3.28.1",
+    "cytoscape-dagre": "^2.5.0",
+    "dagre": "^0.8.5"
+  }
+}

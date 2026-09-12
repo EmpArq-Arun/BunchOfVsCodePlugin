@@ -1,0 +1,34 @@
+{
+  "stm32": {
+    "name": "STM32 / CubeIDE",
+    "excludePaths": ["Middlewares/**","Drivers/STM32*/**","Drivers/CMSIS/**","USB_DEVICE/**","FATFS/**","lwip/**"],
+    "excludePrefixes": ["HAL_","LL_","__HAL_","CMSIS_","stm32"],
+    "externLeafPrefixes": ["HAL_","LL_","CMSIS_"],
+    "includeExtensions": [".c",".h"],
+    "notes": "STM32CubeIDE / CubeMX project."
+  },
+  "pic": {
+    "name": "PIC / MPLAB XC",
+    "excludePaths": ["xc8/**","xc16/**","xc32/**","mcc_generated_files/**","bsp/**","MCC/**"],
+    "excludePrefixes": ["MCC_","PIN_","SPI_","I2C_","UART_","TMR_","ADC_","CCP_","PWM_"],
+    "externLeafPrefixes": ["MCC_","PIN_","TMR","ADC_","UART_"],
+    "includeExtensions": [".c",".h"],
+    "notes": "MPLAB X / MCC generated project."
+  },
+  "nxp": {
+    "name": "NXP / MCUXpresso SDK",
+    "excludePaths": ["SDK_2_*/devices/**","SDK_2_*/drivers/**","SDK_2_*/components/**","CMSIS/**","board/**","startup/**"],
+    "excludePrefixes": ["SDK_","FSL_","BOARD_","CLOCK_","POWER_","RESET_"],
+    "externLeafPrefixes": ["FSL_","BOARD_","CLOCK_"],
+    "includeExtensions": [".c",".h"],
+    "notes": "NXP MCUXpresso SDK project."
+  },
+  "custom": {
+    "name": "Custom",
+    "excludePaths": [],
+    "excludePrefixes": [],
+    "externLeafPrefixes": [],
+    "includeExtensions": [".c",".h"],
+    "notes": "Edit .codex/vendor.json to define custom exclusion rules."
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "name": "embedded-clangd-gen",
+  "displayName": "Embedded clangd Config Generator",
+  "description": "Generate compile_commands.json, .clangd, compile_flags.txt and c_cpp_properties.json from NXP S32DS, Microchip MPLAB X, STM32CubeIDE, or any Eclipse CDT Makefile project",
+  "version": "1.1.0",
+  "publisher": "empiricalarq",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:s32ds-clangd-gen.generate"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "s32ds-clangd-gen.generate",
+        "title": "Embedded: Generate clangd Config Files"
+      },
+      {
+        "command": "s32ds-clangd-gen.openSettings",
+        "title": "Embedded: Open clangd Generator Settings"
+      }
+    ],
+    "configuration": {
+      "title": "Embedded clangd Generator",
+      "properties": {
+        "embeddedClangd.ideType": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "s32ds",
+            "mplab",
+            "stm32",
+            "generic"
+          ],
+          "enumDescriptions": [
+            "Auto-detect from project marker files (.cproject, nbproject/, .mxproject)",
+            "NXP S32 Design Studio (Eclipse CDT, arm-none-eabi)",
+            "Microchip MPLAB X IDE (XC8 / XC16 / XC32)",
+            "STMicroelectronics STM32CubeIDE (Eclipse CDT, arm-none-eabi)",
+            "Generic / Custom — uses ARM defaults, fully overridable"
+          ],
+          "default": "auto",
+          "description": "Which IDE generated this project. 'auto' detects from project files and prompts if ambiguous."
+        },
+        "embeddedClangd.projectRoot": {
+          "type": "string",
+          "default": "",
+          "description": "Project root directory. Leave empty to auto-detect: walks up from the active editor file looking for .cproject / nbproject / .mxproject / .git, then falls back to the first workspace folder."
+        },
+        "embeddedClangd.compilerPath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Absolute path to the compiler executable. clangd runs it with `-v` to extract system include paths.\n\n- **S32DS**: `C:/NXP/S32DS.3.5/.../arm-none-eabi-gcc.exe`\n- **MPLAB XC32**: `C:/Program Files/Microchip/xc32/v4.30/bin/xc32-gcc.exe`\n- **STM32CubeIDE**: `C:/ST/STM32CubeIDE_1.14.0/.../arm-none-eabi-gcc.exe`"
+        },
+        "embeddedClangd.makePath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to make executable. Leave empty to use 'make' from PATH. Full path required if IDE bundles its own make (common on Windows)."
+        },
+        "embeddedClangd.buildFolders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "markdownDescription": "Build output folder names to search for Makefiles, tried in order. **Leave empty to use the IDE preset defaults.**\n\n- S32DS default: `[\"Debug_FLASH\", \"Debug_RAM\", \"Release_FLASH\", ...]`\n- MPLAB default: `[\"dist/default/production\", \"dist/default/debug\", ...]`\n- STM32 default: `[\"Debug\", \"Release\"]`"
+        },
+        "embeddedClangd.targetTriple": {
+          "type": "string",
+          "default": "",
+          "description": "Compiler target triple. Leave empty to use IDE preset (arm-none-eabi for S32DS/STM32, mipsel-unknown-elf for MPLAB XC32). Override for XC8: pic-unknown-elf, XC16: pic30-unknown-elf."
+        },
+        "embeddedClangd.cpuFlags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "markdownDescription": "CPU-specific flags re-added after stripping. **Leave empty to use IDE preset.**\n\nExamples:\n- Cortex-M4 FPU: `[\"-mcpu=cortex-m4\",\"-mthumb\",\"-mfpu=fpv4-sp-d16\",\"-mfloat-abi=hard\"]`\n- Cortex-M33: `[\"-mcpu=cortex-m33\",\"-mthumb\",\"-mfpu=fpv5-sp-d16\",\"-mfloat-abi=hard\"]`\n- Cortex-M0+: `[\"-mcpu=cortex-m0plus\",\"-mthumb\"]`"
+        },
+        "embeddedClangd.stripFlags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Flag patterns (glob * wildcard) to strip before passing to clangd. Leave empty to use IDE preset. Add IDE-specific flags clangd rejects here."
+        },
+        "embeddedClangd.extraIncludes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Additional include paths added to every config on top of what the build system provides. e.g. [\"C:/FreeRTOS/include\", \"C:/SDK/platform/include\"]"
+        },
+        "embeddedClangd.extraDefines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Additional preprocessor defines added to every config. e.g. [\"DEBUG\", \"CPU_S32K144HFT0VLLT\", \"USE_HAL_DRIVER\"]"
+        },
+        "embeddedClangd.cStandard": {
+          "type": "string",
+          "enum": [
+            "",
+            "c89",
+            "c99",
+            "c11",
+            "c17",
+            "gnu99",
+            "gnu11",
+            "gnu17"
+          ],
+          "default": "",
+          "description": "C standard. Leave empty to use IDE preset (c11 for S32DS/STM32, c99 for MPLAB)."
+        },
+        "embeddedClangd.generateCompileFlags": {
+          "type": "boolean",
+          "default": true,
+          "description": "Also generate compile_flags.txt as a fallback for tools that don't read compile_commands.json."
+        },
+        "embeddedClangd.backgroundIndex": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable clangd background indexing (.clangd Index.Background setting)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  }
+}

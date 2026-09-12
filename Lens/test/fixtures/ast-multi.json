@@ -1,0 +1,339 @@
+{
+  "id": "0x561a640c9338",
+  "kind": "CXXRecordDecl",
+  "loc": {
+    "offset": 178,
+    "file": "rosetta.cpp",
+    "line": 7,
+    "col": 8,
+    "tokLen": 4
+  },
+  "range": {
+    "begin": {
+      "offset": 171,
+      "col": 1,
+      "tokLen": 6
+    },
+    "end": {
+      "offset": 300,
+      "line": 12,
+      "col": 1,
+      "tokLen": 1
+    }
+  },
+  "isReferenced": true,
+  "name": "Lock",
+  "tagUsed": "struct",
+  "completeDefinition": true,
+  "definitionData": {
+    "canConstDefaultInit": true,
+    "copyAssign": {
+      "hasConstParam": true,
+      "implicitHasConstParam": true,
+      "needsImplicit": true,
+      "simple": true,
+      "trivial": true
+    },
+    "copyCtor": {
+      "hasConstParam": true,
+      "implicitHasConstParam": true,
+      "trivial": true,
+      "userDeclared": true
+    },
+    "defaultCtor": {
+      "defaultedIsConstexpr": true
+    },
+    "dtor": {
+      "nonTrivial": true,
+      "userDeclared": true
+    },
+    "hasUserDeclaredConstructor": true,
+    "isStandardLayout": true,
+    "moveAssign": {},
+    "moveCtor": {}
+  },
+  "inner": [
+    {
+      "id": "0x561a640c9470",
+      "kind": "CXXRecordDecl",
+      "loc": {
+        "offset": 178,
+        "line": 7,
+        "col": 8,
+        "tokLen": 4
+      },
+      "range": {
+        "begin": {
+          "offset": 171,
+          "col": 1,
+          "tokLen": 6
+        },
+        "end": {
+          "offset": 178,
+          "col": 8,
+          "tokLen": 4
+        }
+      },
+      "isImplicit": true,
+      "isReferenced": true,
+      "name": "Lock",
+      "tagUsed": "struct"
+    },
+    {
+      "id": "0x561a640c9708",
+      "kind": "CXXConstructorDecl",
+      "loc": {
+        "offset": 198,
+        "line": 8,
+        "col": 14,
+        "tokLen": 4
+      },
+      "range": {
+        "begin": {
+          "offset": 189,
+          "col": 5,
+          "tokLen": 8
+        },
+        "end": {
+          "offset": 233,
+          "col": 49,
+          "tokLen": 1
+        }
+      },
+      "isUsed": true,
+      "name": "Lock",
+      "mangledName": "_ZN2fw4LockC1Ej",
+      "type": {
+        "qualType": "void (uint32_t)"
+      },
+      "inner": [
+        {
+          "id": "0x561a640c9598",
+          "kind": "ParmVarDecl",
+          "loc": {
+            "offset": 212,
+            "col": 28,
+            "tokLen": 4
+          },
+          "range": {
+            "begin": {
+              "offset": 203,
+              "col": 19,
+              "tokLen": 8
+            },
+            "end": {
+              "offset": 212,
+              "col": 28,
+              "tokLen": 4
+            }
+          },
+          "isUsed": true,
+          "name": "mask",
+          "type": {
+            "desugaredQualType": "unsigned int",
+            "qualType": "uint32_t",
+            "typeAliasDeclId": "0x561a6408c578"
+          }
+        },
+        {
+          "kind": "CXXCtorInitializer",
+          "anyInit": {
+            "id": "0x561a640c9c40",
+            "kind": "FieldDecl",
+            "name": "mask_",
+            "type": {
+              "desugaredQualType": "unsigned int",
+              "qualType": "uint32_t",
+              "typeAliasDeclId": "0x561a6408c578"
+            }
+          },
+          "inner": [
+            {
+              "id": "0x561a640c9cd0",
+              "kind": "ImplicitCastExpr",
+              "range": {
+                "begin": {
+                  "offset": 226,
+                  "col": 42,
+                  "tokLen": 4
+                },
+                "end": {
+                  "offset": 226,
+                  "col": 42,
+                  "tokLen": 4
+                }
+              },
+              "type": {
+                "desugaredQualType": "unsigned int",
+                "qualType": "uint32_t",
+                "typeAliasDeclId": "0x561a6408c578"
+              },
+              "valueCategory": "prvalue",
+              "castKind": "LValueToRValue",
+              "inner": [
+                {
+                  "id": "0x561a640c9c90",
+                  "kind": "DeclRefExpr",
+                  "range": {
+                    "begin": {
+                      "offset": 226,
+                      "col": 42,
+                      "tokLen": 4
+                    },
+                    "end": {
+                      "offset": 226,
+                      "col": 42,
+                      "tokLen": 4
+                    }
+                  },
+                  "type": {
+                    "desugaredQualType": "unsigned int",
+                    "qualType": "uint32_t",
+                    "typeAliasDeclId": "0x561a6408c578"
+                  },
+                  "valueCategory": "lvalue",
+                  "referencedDecl": {
+                    "id": "0x561a640c9598",
+                    "kind": "ParmVarDecl",
+                    "name": "mask",
+                    "type": {
+                      "desugaredQualType": "unsigned int",
+                      "qualType": "uint32_t",
+                      "typeAliasDeclId": "0x561a6408c578"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "0x561a640c9d10",
+          "kind": "CompoundStmt",
+          "range": {
+            "begin": {
+              "offset": 232,
+              "col": 48,
+              "tokLen": 1
+            },
+            "end": {
+              "offset": 233,
+              "col": 49,
+              "tokLen": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "0x561a640c9898",
+      "kind": "CXXDestructorDecl",
+      "loc": {
+        "offset": 239,
+        "line": 9,
+        "col": 5,
+        "tokLen": 1
+      },
+      "range": {
+        "begin": {
+          "offset": 239,
+          "col": 5,
+          "tokLen": 1
+        },
+        "end": {
+          "offset": 245,
+          "col": 11,
+          "tokLen": 1
+        }
+      },
+      "isUsed": true,
+      "name": "~Lock",
+      "mangledName": "_ZN2fw4LockD1Ev",
+      "type": {
+        "qualType": "void () noexcept"
+      }
+    },
+    {
+      "id": "0x561a640c9b48",
+      "kind": "CXXConstructorDecl",
+      "loc": {
+        "offset": 252,
+        "line": 10,
+        "col": 5,
+        "tokLen": 4
+      },
+      "range": {
+        "begin": {
+          "offset": 252,
+          "col": 5,
+          "tokLen": 4
+        },
+        "end": {
+          "offset": 277,
+          "col": 30,
+          "tokLen": 1
+        }
+      },
+      "name": "Lock",
+      "mangledName": "_ZN2fw4LockC1ERKS0_",
+      "type": {
+        "qualType": "void (const Lock &)"
+      },
+      "explicitlyDeleted": true,
+      "inner": [
+        {
+          "id": "0x561a640c9a20",
+          "kind": "ParmVarDecl",
+          "loc": {
+            "offset": 268,
+            "col": 21,
+            "tokLen": 1
+          },
+          "range": {
+            "begin": {
+              "offset": 257,
+              "col": 10,
+              "tokLen": 5
+            },
+            "end": {
+              "offset": 267,
+              "col": 20,
+              "tokLen": 1
+            }
+          },
+          "type": {
+            "qualType": "const Lock &"
+          }
+        }
+      ]
+    },
+    {
+      "id": "0x561a640c9c40",
+      "kind": "FieldDecl",
+      "loc": {
+        "offset": 293,
+        "line": 11,
+        "col": 14,
+        "tokLen": 5
+      },
+      "range": {
+        "begin": {
+          "offset": 284,
+          "col": 5,
+          "tokLen": 8
+        },
+        "end": {
+          "offset": 293,
+          "col": 14,
+          "tokLen": 5
+        }
+      },
+      "name": "mask_",
+      "type": {
+        "desugaredQualType": "unsigned int",
+        "qualType": "uint32_t",
+        "typeAliasDeclId": "0x561a6408c578"
+      }
+    }
+  ]
+}

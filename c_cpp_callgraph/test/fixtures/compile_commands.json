@@ -1,0 +1,22 @@
+[
+  {
+    "directory": "/home/claude/callgraph-extension/test/fixtures",
+    "file": "/home/claude/callgraph-extension/test/fixtures/sample.cpp",
+    "arguments": ["clang++", "-std=c++17", "-c", "-o", "sample.o", "/home/claude/callgraph-extension/test/fixtures/sample.cpp"]
+  },
+  {
+    "directory": "/home/claude/callgraph-extension/test/fixtures",
+    "file": "/home/claude/callgraph-extension/test/fixtures/member_call.cpp",
+    "arguments": ["clang++", "-std=c++17", "-c", "-o", "member_call.o", "/home/claude/callgraph-extension/test/fixtures/member_call.cpp"]
+  },
+  {
+    "directory": "/home/claude/callgraph-extension/test/fixtures/proj",
+    "file": "/home/claude/callgraph-extension/test/fixtures/proj/main.cpp",
+    "arguments": ["clang++", "-std=c++17", "-I/home/claude/callgraph-extension/test/fixtures/proj", "-c", "-o", "main.o", "/home/claude/callgraph-extension/test/fixtures/proj/main.cpp"]
+  },
+  {
+    "directory": "/home/claude/callgraph-extension/test/fixtures/proj",
+    "file": "/home/claude/callgraph-extension/test/fixtures/proj/util.cpp",
+    "arguments": ["clang++", "-std=c++17", "-I/home/claude/callgraph-extension/test/fixtures/proj", "-c", "-o", "util.o", "/home/claude/callgraph-extension/test/fixtures/proj/util.cpp"]
+  }
+]

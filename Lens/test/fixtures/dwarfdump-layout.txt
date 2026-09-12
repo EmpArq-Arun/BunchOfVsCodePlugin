@@ -1,0 +1,1637 @@
+/tmp/l2.o:	file format elf64-x86-64
+
+.debug_info contents:
+0x00000000: Compile Unit: length = 0x0000083b, format = DWARF32, version = 0x0005, unit_type = DW_UT_compile, abbr_offset = 0x0000, addr_size = 0x08 (next unit at 0x0000083f)
+
+0x0000000c: DW_TAG_compile_unit
+              DW_AT_producer	("Ubuntu clang version 18.1.3 (1ubuntu1)")
+              DW_AT_language	(DW_LANG_C_plus_plus_14)
+              DW_AT_name	("/home/claude/lens/test/fixtures/src/layout.cpp")
+              DW_AT_str_offsets_base	(0x00000008)
+              DW_AT_stmt_list	(0x00000000)
+              DW_AT_comp_dir	("/tmp")
+              DW_AT_low_pc	(0x0000000000000000)
+              DW_AT_ranges	(indexed (0x0) rangelist = 0x00000010
+                 [0x0000000000000000, 0x000000000000002c)
+                 [0x0000000000000030, 0x000000000000005c)
+                 [0x0000000000000060, 0x000000000000008c)
+                 [0x0000000000000090, 0x00000000000000a5)
+                 [0x0000000000000000, 0x0000000000000031)
+                 [0x0000000000000000, 0x000000000000001b)
+                 [0x0000000000000000, 0x000000000000004d)
+                 [0x0000000000000000, 0x000000000000002c)
+                 [0x0000000000000000, 0x000000000000007a)
+                 [0x0000000000000000, 0x000000000000002f)
+                 [0x0000000000000000, 0x000000000000001c)
+                 [0x0000000000000000, 0x000000000000001c)
+                 [0x0000000000000000, 0x0000000000000016)
+                 [0x0000000000000000, 0x000000000000002b)
+                 [0x0000000000000000, 0x000000000000002b)
+                 [0x0000000000000000, 0x0000000000000044)
+                 [0x0000000000000000, 0x000000000000001c)
+                 [0x0000000000000000, 0x0000000000000016)
+                 [0x0000000000000000, 0x000000000000000e)
+                 [0x0000000000000000, 0x000000000000000e))
+              DW_AT_addr_base	(0x00000008)
+              DW_AT_rnglists_base	(0x0000000c)
+
+0x0000002b:   DW_TAG_variable
+                DW_AT_name	("g_pin")
+                DW_AT_type	(0x00000038 "fw::PinConfig")
+                DW_AT_external	(true)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(70)
+                DW_AT_location	(DW_OP_addrx 0x0)
+
+0x00000036:   DW_TAG_namespace
+                DW_AT_name	("fw")
+
+0x00000038:     DW_TAG_structure_type
+                  DW_AT_calling_convention	(DW_CC_pass_by_value)
+                  DW_AT_name	("PinConfig")
+                  DW_AT_byte_size	(0x0c)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(7)
+
+0x0000003e:       DW_TAG_member
+                    DW_AT_name	("port")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(8)
+                    DW_AT_data_member_location	(0x00)
+
+0x00000047:       DW_TAG_member
+                    DW_AT_name	("mask")
+                    DW_AT_type	(0x00000354 "uint32_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(9)
+                    DW_AT_data_member_location	(0x04)
+
+0x00000050:       DW_TAG_member
+                    DW_AT_name	("pin")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(10)
+                    DW_AT_data_member_location	(0x08)
+
+0x00000059:       NULL
+
+0x0000005a:     DW_TAG_union_type
+                  DW_AT_calling_convention	(DW_CC_pass_by_value)
+                  DW_AT_name	("RegisterView")
+                  DW_AT_byte_size	(0x04)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(22)
+
+0x00000060:       DW_TAG_member
+                    DW_AT_name	("raw")
+                    DW_AT_type	(0x00000354 "uint32_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(23)
+                    DW_AT_data_member_location	(0x00)
+
+0x00000069:       DW_TAG_member
+                    DW_AT_name	("bits")
+                    DW_AT_type	(0x00000073 "fw::StatusReg")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(24)
+                    DW_AT_data_member_location	(0x00)
+
+0x00000072:       NULL
+
+0x00000073:     DW_TAG_structure_type
+                  DW_AT_calling_convention	(DW_CC_pass_by_value)
+                  DW_AT_name	("StatusReg")
+                  DW_AT_byte_size	(0x04)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(14)
+
+0x00000079:       DW_TAG_member
+                    DW_AT_name	("ready")
+                    DW_AT_type	(0x00000354 "uint32_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(15)
+                    DW_AT_bit_size	(0x01)
+                    DW_AT_data_bit_offset	(0x00)
+
+0x00000083:       DW_TAG_member
+                    DW_AT_name	("error")
+                    DW_AT_type	(0x00000354 "uint32_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(16)
+                    DW_AT_bit_size	(0x01)
+                    DW_AT_data_bit_offset	(0x01)
+
+0x0000008d:       DW_TAG_member
+                    DW_AT_name	("count")
+                    DW_AT_type	(0x00000354 "uint32_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(17)
+                    DW_AT_bit_size	(0x06)
+                    DW_AT_data_bit_offset	(0x02)
+
+0x00000097:       DW_TAG_member
+                    DW_AT_name	("code")
+                    DW_AT_type	(0x00000354 "uint32_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(19)
+                    DW_AT_bit_size	(0x10)
+                    DW_AT_data_bit_offset	(0x10)
+
+0x000000a1:       NULL
+
+0x000000a2:     DW_TAG_structure_type
+                  DW_AT_containing_type	(0x000000fe "fw::ISpi")
+                  DW_AT_calling_convention	(DW_CC_pass_by_reference)
+                  DW_AT_name	("SpiDriver")
+                  DW_AT_byte_size	(0x18)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(38)
+
+0x000000ac:       DW_TAG_inheritance
+                    DW_AT_type	(0x000000fe "fw::ISpi")
+                    DW_AT_data_member_location	(0x00)
+
+0x000000b2:       DW_TAG_member
+                    DW_AT_name	("channel_")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(40)
+                    DW_AT_data_member_location	(0x08)
+
+0x000000bb:       DW_TAG_member
+                    DW_AT_name	("base_")
+                    DW_AT_type	(0x000003a0 "volatile uint32_t *")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(41)
+                    DW_AT_data_member_location	(0x10)
+
+0x000000c4:       DW_TAG_subprogram
+                    DW_AT_linkage_name	("_ZN2fw9SpiDriver8transferEPhj")
+                    DW_AT_name	("transfer")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(39)
+                    DW_AT_type	(0x00000392 "bool")
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x000000a2 "fw::SpiDriver")
+
+0x000000d5:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003aa "fw::SpiDriver *")
+                      DW_AT_artificial	(true)
+
+0x000000da:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x0000039b "uint8_t *")
+
+0x000000df:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000354 "uint32_t")
+
+0x000000e4:         NULL
+
+0x000000e5:       DW_TAG_subprogram
+                    DW_AT_name	("SpiDriver")
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+
+0x000000e7:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003aa "fw::SpiDriver *")
+                      DW_AT_artificial	(true)
+
+0x000000ec:         NULL
+
+0x000000ed:       DW_TAG_subprogram
+                    DW_AT_name	("~SpiDriver")
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x000000a2 "fw::SpiDriver")
+
+0x000000f7:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003aa "fw::SpiDriver *")
+                      DW_AT_artificial	(true)
+
+0x000000fc:         NULL
+
+0x000000fd:       NULL
+
+0x000000fe:     DW_TAG_structure_type
+                  DW_AT_containing_type	(0x000000fe "fw::ISpi")
+                  DW_AT_calling_convention	(DW_CC_pass_by_reference)
+                  DW_AT_name	("ISpi")
+                  DW_AT_byte_size	(0x08)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(28)
+
+0x00000108:       DW_TAG_member
+                    DW_AT_name	("_vptr$ISpi")
+                    DW_AT_type	(0x0000037e "int (**)()")
+                    DW_AT_data_member_location	(0x00)
+                    DW_AT_artificial	(true)
+
+0x0000010f:       DW_TAG_subprogram
+                    DW_AT_linkage_name	("_ZN2fw4ISpi8transferEPhj")
+                    DW_AT_name	("transfer")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(29)
+                    DW_AT_type	(0x00000392 "bool")
+                    DW_AT_virtuality	(DW_VIRTUALITY_pure_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x000000fe "fw::ISpi")
+
+0x00000120:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000396 "fw::ISpi *")
+                      DW_AT_artificial	(true)
+
+0x00000125:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x0000039b "uint8_t *")
+
+0x0000012a:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000354 "uint32_t")
+
+0x0000012f:         NULL
+
+0x00000130:       DW_TAG_subprogram
+                    DW_AT_name	("~ISpi")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(30)
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x000000fe "fw::ISpi")
+
+0x0000013c:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000396 "fw::ISpi *")
+                      DW_AT_artificial	(true)
+
+0x00000141:         NULL
+
+0x00000142:       DW_TAG_subprogram
+                    DW_AT_name	("ISpi")
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+
+0x00000144:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000396 "fw::ISpi *")
+                      DW_AT_artificial	(true)
+
+0x00000149:         NULL
+
+0x0000014a:       NULL
+
+0x0000014b:     DW_TAG_structure_type
+                  DW_AT_containing_type	(0x000000fe "fw::ISpi")
+                  DW_AT_calling_convention	(DW_CC_pass_by_reference)
+                  DW_AT_name	("DuplexPort")
+                  DW_AT_byte_size	(0x18)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(45)
+
+0x00000155:       DW_TAG_inheritance
+                    DW_AT_type	(0x000000fe "fw::ISpi")
+                    DW_AT_data_member_location	(0x00)
+
+0x0000015b:       DW_TAG_inheritance
+                    DW_AT_type	(0x000001bc "fw::IUart")
+                    DW_AT_data_member_location	(0x08)
+
+0x00000161:       DW_TAG_member
+                    DW_AT_name	("depth_")
+                    DW_AT_type	(0x000003bf "uint16_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(48)
+                    DW_AT_data_member_location	(0x10)
+
+0x0000016a:       DW_TAG_subprogram
+                    DW_AT_linkage_name	("_ZN2fw10DuplexPort8transferEPhj")
+                    DW_AT_name	("transfer")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(46)
+                    DW_AT_type	(0x00000392 "bool")
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x0000014b "fw::DuplexPort")
+
+0x0000017b:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003d3 "fw::DuplexPort *")
+                      DW_AT_artificial	(true)
+
+0x00000180:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x0000039b "uint8_t *")
+
+0x00000185:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000354 "uint32_t")
+
+0x0000018a:         NULL
+
+0x0000018b:       DW_TAG_subprogram
+                    DW_AT_linkage_name	("_ZN2fw10DuplexPort5writeEh")
+                    DW_AT_name	("write")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(47)
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x3)
+                    DW_AT_declaration	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x0000014b "fw::DuplexPort")
+
+0x00000198:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003d3 "fw::DuplexPort *")
+                      DW_AT_artificial	(true)
+
+0x0000019d:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000340 "uint8_t")
+
+0x000001a2:         NULL
+
+0x000001a3:       DW_TAG_subprogram
+                    DW_AT_name	("DuplexPort")
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+
+0x000001a5:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003d3 "fw::DuplexPort *")
+                      DW_AT_artificial	(true)
+
+0x000001aa:         NULL
+
+0x000001ab:       DW_TAG_subprogram
+                    DW_AT_name	("~DuplexPort")
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x0000014b "fw::DuplexPort")
+
+0x000001b5:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003d3 "fw::DuplexPort *")
+                      DW_AT_artificial	(true)
+
+0x000001ba:         NULL
+
+0x000001bb:       NULL
+
+0x000001bc:     DW_TAG_structure_type
+                  DW_AT_containing_type	(0x000001bc "fw::IUart")
+                  DW_AT_calling_convention	(DW_CC_pass_by_reference)
+                  DW_AT_name	("IUart")
+                  DW_AT_byte_size	(0x08)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(33)
+
+0x000001c6:       DW_TAG_member
+                    DW_AT_name	("_vptr$IUart")
+                    DW_AT_type	(0x0000037e "int (**)()")
+                    DW_AT_data_member_location	(0x00)
+                    DW_AT_artificial	(true)
+
+0x000001cd:       DW_TAG_subprogram
+                    DW_AT_linkage_name	("_ZN2fw5IUart5writeEh")
+                    DW_AT_name	("write")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(34)
+                    DW_AT_virtuality	(DW_VIRTUALITY_pure_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x000001bc "fw::IUart")
+
+0x000001da:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003ba "fw::IUart *")
+                      DW_AT_artificial	(true)
+
+0x000001df:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000340 "uint8_t")
+
+0x000001e4:         NULL
+
+0x000001e5:       DW_TAG_subprogram
+                    DW_AT_name	("~IUart")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(35)
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x000001bc "fw::IUart")
+
+0x000001f1:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003ba "fw::IUart *")
+                      DW_AT_artificial	(true)
+
+0x000001f6:         NULL
+
+0x000001f7:       DW_TAG_subprogram
+                    DW_AT_name	("IUart")
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+
+0x000001f9:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003ba "fw::IUart *")
+                      DW_AT_artificial	(true)
+
+0x000001fe:         NULL
+
+0x000001ff:       NULL
+
+0x00000200:     DW_TAG_structure_type
+                  DW_AT_containing_type	(0x00000259 "fw::Left")
+                  DW_AT_calling_convention	(DW_CC_pass_by_reference)
+                  DW_AT_name	("Diamond")
+                  DW_AT_byte_size	(0x20)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(54)
+
+0x0000020a:       DW_TAG_inheritance
+                    DW_AT_type	(0x00000259 "fw::Left")
+                    DW_AT_data_member_location	(0x00)
+
+0x00000210:       DW_TAG_inheritance
+                    DW_AT_type	(0x00000293 "fw::Right")
+                    DW_AT_data_member_location	(0x10)
+
+0x00000216:       DW_TAG_member
+                    DW_AT_name	("d_")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(56)
+                    DW_AT_data_member_location	(0x19)
+
+0x0000021f:       DW_TAG_subprogram
+                    DW_AT_linkage_name	("_ZN2fw7Diamond8transferEPhj")
+                    DW_AT_name	("transfer")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(55)
+                    DW_AT_type	(0x00000392 "bool")
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x00000200 "fw::Diamond")
+
+0x00000230:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003e3 "fw::Diamond *")
+                      DW_AT_artificial	(true)
+
+0x00000235:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x0000039b "uint8_t *")
+
+0x0000023a:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000354 "uint32_t")
+
+0x0000023f:         NULL
+
+0x00000240:       DW_TAG_subprogram
+                    DW_AT_name	("Diamond")
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+
+0x00000242:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003e3 "fw::Diamond *")
+                      DW_AT_artificial	(true)
+
+0x00000247:         NULL
+
+0x00000248:       DW_TAG_subprogram
+                    DW_AT_name	("~Diamond")
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x00000200 "fw::Diamond")
+
+0x00000252:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x000003e3 "fw::Diamond *")
+                      DW_AT_artificial	(true)
+
+0x00000257:         NULL
+
+0x00000258:       NULL
+
+0x00000259:     DW_TAG_structure_type
+                  DW_AT_containing_type	(0x000000fe "fw::ISpi")
+                  DW_AT_calling_convention	(DW_CC_pass_by_reference)
+                  DW_AT_name	("Left")
+                  DW_AT_byte_size	(0x10)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(52)
+
+0x00000263:       DW_TAG_inheritance
+                    DW_AT_type	(0x000000fe "fw::ISpi")
+                    DW_AT_data_member_location	(DW_OP_dup, DW_OP_deref, DW_OP_constu 0x28, DW_OP_minus, DW_OP_deref, DW_OP_plus)
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+
+0x00000271:       DW_TAG_member
+                    DW_AT_name	("l_")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(52)
+                    DW_AT_data_member_location	(0x08)
+
+0x0000027a:       DW_TAG_subprogram
+                    DW_AT_name	("Left")
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+
+0x0000027c:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x0000052b "fw::Left *")
+                      DW_AT_artificial	(true)
+
+0x00000281:         NULL
+
+0x00000282:       DW_TAG_subprogram
+                    DW_AT_name	("~Left")
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x00000259 "fw::Left")
+
+0x0000028c:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x0000052b "fw::Left *")
+                      DW_AT_artificial	(true)
+
+0x00000291:         NULL
+
+0x00000292:       NULL
+
+0x00000293:     DW_TAG_structure_type
+                  DW_AT_containing_type	(0x000000fe "fw::ISpi")
+                  DW_AT_calling_convention	(DW_CC_pass_by_reference)
+                  DW_AT_name	("Right")
+                  DW_AT_byte_size	(0x10)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(53)
+
+0x0000029d:       DW_TAG_inheritance
+                    DW_AT_type	(0x000000fe "fw::ISpi")
+                    DW_AT_data_member_location	(DW_OP_dup, DW_OP_deref, DW_OP_constu 0x28, DW_OP_minus, DW_OP_deref, DW_OP_plus)
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+
+0x000002ab:       DW_TAG_member
+                    DW_AT_name	("r_")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(53)
+                    DW_AT_data_member_location	(0x08)
+
+0x000002b4:       DW_TAG_subprogram
+                    DW_AT_name	("Right")
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+
+0x000002b6:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000556 "fw::Right *")
+                      DW_AT_artificial	(true)
+
+0x000002bb:         NULL
+
+0x000002bc:       DW_TAG_subprogram
+                    DW_AT_name	("~Right")
+                    DW_AT_virtuality	(DW_VIRTUALITY_virtual)
+                    DW_AT_vtable_elem_location	(DW_OP_constu 0x0)
+                    DW_AT_declaration	(true)
+                    DW_AT_artificial	(true)
+                    DW_AT_external	(true)
+                    DW_AT_containing_type	(0x00000293 "fw::Right")
+
+0x000002c6:         DW_TAG_formal_parameter
+                      DW_AT_type	(0x00000556 "fw::Right *")
+                      DW_AT_artificial	(true)
+
+0x000002cb:         NULL
+
+0x000002cc:       NULL
+
+0x000002cd:     DW_TAG_structure_type
+                  DW_AT_calling_convention	(DW_CC_pass_by_value)
+                  DW_AT_name	("Tagged")
+                  DW_AT_byte_size	(0x04)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(61)
+
+0x000002d3:       DW_TAG_inheritance
+                    DW_AT_type	(0x000002e3 "fw::Tag")
+                    DW_AT_data_member_location	(0x00)
+
+0x000002d9:       DW_TAG_member
+                    DW_AT_name	("value_")
+                    DW_AT_type	(0x00000354 "uint32_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(61)
+                    DW_AT_data_member_location	(0x00)
+
+0x000002e2:       NULL
+
+0x000002e3:     DW_TAG_structure_type
+                  DW_AT_calling_convention	(DW_CC_pass_by_value)
+                  DW_AT_name	("Tag")
+                  DW_AT_byte_size	(0x01)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(60)
+
+0x000002e9:     DW_TAG_structure_type
+                  DW_AT_calling_convention	(DW_CC_pass_by_value)
+                  DW_AT_name	("Wasteful")
+                  DW_AT_byte_size	(0x20)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(64)
+
+0x000002ef:       DW_TAG_member
+                    DW_AT_name	("a")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(64)
+                    DW_AT_data_member_location	(0x00)
+
+0x000002f8:       DW_TAG_member
+                    DW_AT_name	("b")
+                    DW_AT_type	(0x000003fe "uint64_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(64)
+                    DW_AT_data_member_location	(0x08)
+
+0x00000301:       DW_TAG_member
+                    DW_AT_name	("c")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(64)
+                    DW_AT_data_member_location	(0x10)
+
+0x0000030a:       DW_TAG_member
+                    DW_AT_name	("d")
+                    DW_AT_type	(0x000003fe "uint64_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(64)
+                    DW_AT_data_member_location	(0x18)
+
+0x00000313:       NULL
+
+0x00000314:     DW_TAG_structure_type
+                  DW_AT_calling_convention	(DW_CC_pass_by_value)
+                  DW_AT_name	("Tight")
+                  DW_AT_byte_size	(0x18)
+                  DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                  DW_AT_decl_line	(65)
+
+0x0000031a:       DW_TAG_member
+                    DW_AT_name	("b")
+                    DW_AT_type	(0x000003fe "uint64_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(65)
+                    DW_AT_data_member_location	(0x00)
+
+0x00000323:       DW_TAG_member
+                    DW_AT_name	("d")
+                    DW_AT_type	(0x000003fe "uint64_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(65)
+                    DW_AT_data_member_location	(0x08)
+
+0x0000032c:       DW_TAG_member
+                    DW_AT_name	("a")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(65)
+                    DW_AT_data_member_location	(0x10)
+
+0x00000335:       DW_TAG_member
+                    DW_AT_name	("c")
+                    DW_AT_type	(0x00000340 "uint8_t")
+                    DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                    DW_AT_decl_line	(65)
+                    DW_AT_data_member_location	(0x11)
+
+0x0000033e:       NULL
+
+0x0000033f:     NULL
+
+0x00000340:   DW_TAG_typedef
+                DW_AT_type	(0x00000348 "__uint8_t")
+                DW_AT_name	("uint8_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h")
+                DW_AT_decl_line	(24)
+
+0x00000348:   DW_TAG_typedef
+                DW_AT_type	(0x00000350 "unsigned char")
+                DW_AT_name	("__uint8_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(38)
+
+0x00000350:   DW_TAG_base_type
+                DW_AT_name	("unsigned char")
+                DW_AT_encoding	(DW_ATE_unsigned_char)
+                DW_AT_byte_size	(0x01)
+
+0x00000354:   DW_TAG_typedef
+                DW_AT_type	(0x0000035c "__uint32_t")
+                DW_AT_name	("uint32_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h")
+                DW_AT_decl_line	(26)
+
+0x0000035c:   DW_TAG_typedef
+                DW_AT_type	(0x00000364 "unsigned int")
+                DW_AT_name	("__uint32_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(42)
+
+0x00000364:   DW_TAG_base_type
+                DW_AT_name	("unsigned int")
+                DW_AT_encoding	(DW_ATE_unsigned)
+                DW_AT_byte_size	(0x04)
+
+0x00000368:   DW_TAG_variable
+                DW_AT_name	("g_reg")
+                DW_AT_type	(0x0000005a "fw::RegisterView")
+                DW_AT_external	(true)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(71)
+                DW_AT_location	(DW_OP_addrx 0x1)
+
+0x00000373:   DW_TAG_variable
+                DW_AT_name	("g_spi")
+                DW_AT_type	(0x000000a2 "fw::SpiDriver")
+                DW_AT_external	(true)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(72)
+                DW_AT_location	(DW_OP_addrx 0x2)
+
+0x0000037e:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000383 "int (*)()")
+
+0x00000383:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000389 "int ()")
+                DW_AT_name	("__vtbl_ptr_type")
+
+0x00000389:   DW_TAG_subroutine_type
+                DW_AT_type	(0x0000038e "int")
+
+0x0000038e:   DW_TAG_base_type
+                DW_AT_name	("int")
+                DW_AT_encoding	(DW_ATE_signed)
+                DW_AT_byte_size	(0x04)
+
+0x00000392:   DW_TAG_base_type
+                DW_AT_name	("bool")
+                DW_AT_encoding	(DW_ATE_boolean)
+                DW_AT_byte_size	(0x01)
+
+0x00000396:   DW_TAG_pointer_type
+                DW_AT_type	(0x000000fe "fw::ISpi")
+
+0x0000039b:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000340 "uint8_t")
+
+0x000003a0:   DW_TAG_pointer_type
+                DW_AT_type	(0x000003a5 "volatile uint32_t")
+
+0x000003a5:   DW_TAG_volatile_type
+                DW_AT_type	(0x00000354 "uint32_t")
+
+0x000003aa:   DW_TAG_pointer_type
+                DW_AT_type	(0x000000a2 "fw::SpiDriver")
+
+0x000003af:   DW_TAG_variable
+                DW_AT_name	("g_duplex")
+                DW_AT_type	(0x0000014b "fw::DuplexPort")
+                DW_AT_external	(true)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(73)
+                DW_AT_location	(DW_OP_addrx 0x3)
+
+0x000003ba:   DW_TAG_pointer_type
+                DW_AT_type	(0x000001bc "fw::IUart")
+
+0x000003bf:   DW_TAG_typedef
+                DW_AT_type	(0x000003c7 "__uint16_t")
+                DW_AT_name	("uint16_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h")
+                DW_AT_decl_line	(25)
+
+0x000003c7:   DW_TAG_typedef
+                DW_AT_type	(0x000003cf "unsigned short")
+                DW_AT_name	("__uint16_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(40)
+
+0x000003cf:   DW_TAG_base_type
+                DW_AT_name	("unsigned short")
+                DW_AT_encoding	(DW_ATE_unsigned)
+                DW_AT_byte_size	(0x02)
+
+0x000003d3:   DW_TAG_pointer_type
+                DW_AT_type	(0x0000014b "fw::DuplexPort")
+
+0x000003d8:   DW_TAG_variable
+                DW_AT_name	("g_diamond")
+                DW_AT_type	(0x00000200 "fw::Diamond")
+                DW_AT_external	(true)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(74)
+                DW_AT_location	(DW_OP_addrx 0x4)
+
+0x000003e3:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000200 "fw::Diamond")
+
+0x000003e8:   DW_TAG_variable
+                DW_AT_name	("g_tagged")
+                DW_AT_type	(0x000002cd "fw::Tagged")
+                DW_AT_external	(true)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(75)
+                DW_AT_location	(DW_OP_addrx 0x5)
+
+0x000003f3:   DW_TAG_variable
+                DW_AT_name	("g_wasteful")
+                DW_AT_type	(0x000002e9 "fw::Wasteful")
+                DW_AT_external	(true)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(76)
+                DW_AT_location	(DW_OP_addrx 0x6)
+
+0x000003fe:   DW_TAG_typedef
+                DW_AT_type	(0x00000406 "__uint64_t")
+                DW_AT_name	("uint64_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h")
+                DW_AT_decl_line	(27)
+
+0x00000406:   DW_TAG_typedef
+                DW_AT_type	(0x0000040e "unsigned long")
+                DW_AT_name	("__uint64_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(45)
+
+0x0000040e:   DW_TAG_base_type
+                DW_AT_name	("unsigned long")
+                DW_AT_encoding	(DW_ATE_unsigned)
+                DW_AT_byte_size	(0x08)
+
+0x00000412:   DW_TAG_variable
+                DW_AT_name	("g_tight")
+                DW_AT_type	(0x00000314 "fw::Tight")
+                DW_AT_external	(true)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(77)
+                DW_AT_location	(DW_OP_addrx 0x7)
+
+0x0000041d:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000002c)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_name	("__cxx_global_var_init")
+                DW_AT_artificial	(true)
+
+0x00000426:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x0000000000000031)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x00000439)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(38)
+                DW_AT_linkage_name	("_ZN2fw9SpiDriverC2Ev")
+                DW_AT_specification	(0x000000e5 "SpiDriver")
+
+0x00000439:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x00000815 "fw::SpiDriver *")
+                  DW_AT_artificial	(true)
+
+0x00000442:     NULL
+
+0x00000443:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000001b)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x00000456)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(38)
+                DW_AT_linkage_name	("_ZN2fw9SpiDriverD2Ev")
+                DW_AT_specification	(0x000000ed "~SpiDriver")
+
+0x00000456:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x00000815 "fw::SpiDriver *")
+                  DW_AT_artificial	(true)
+
+0x0000045f:     NULL
+
+0x00000460:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000030)
+                DW_AT_high_pc	(0x000000000000005c)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_name	("__cxx_global_var_init.1")
+                DW_AT_artificial	(true)
+
+0x00000469:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000004d)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x0000047c)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(45)
+                DW_AT_linkage_name	("_ZN2fw10DuplexPortC2Ev")
+                DW_AT_specification	(0x000001a3 "DuplexPort")
+
+0x0000047c:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x0000081a "fw::DuplexPort *")
+                  DW_AT_artificial	(true)
+
+0x00000485:     NULL
+
+0x00000486:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000002c)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x00000499)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(45)
+                DW_AT_linkage_name	("_ZN2fw10DuplexPortD2Ev")
+                DW_AT_specification	(0x000001ab "~DuplexPort")
+
+0x00000499:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x0000081a "fw::DuplexPort *")
+                  DW_AT_artificial	(true)
+
+0x000004a2:     NULL
+
+0x000004a3:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000060)
+                DW_AT_high_pc	(0x000000000000008c)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_name	("__cxx_global_var_init.2")
+                DW_AT_artificial	(true)
+
+0x000004ac:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000007a)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x000004bf)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(54)
+                DW_AT_linkage_name	("_ZN2fw7DiamondC1Ev")
+                DW_AT_specification	(0x00000240 "Diamond")
+
+0x000004bf:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x0000081f "fw::Diamond *")
+                  DW_AT_artificial	(true)
+
+0x000004c8:     NULL
+
+0x000004c9:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000002f)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x000004dc)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(54)
+                DW_AT_linkage_name	("_ZN2fw7DiamondD1Ev")
+                DW_AT_specification	(0x00000248 "~Diamond")
+
+0x000004dc:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x0000081f "fw::Diamond *")
+                  DW_AT_artificial	(true)
+
+0x000004e5:     NULL
+
+0x000004e6:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000001c)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x000004f9)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(28)
+                DW_AT_linkage_name	("_ZN2fw4ISpiC2Ev")
+                DW_AT_specification	(0x00000142 "ISpi")
+
+0x000004f9:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x00000824 "fw::ISpi *")
+                  DW_AT_artificial	(true)
+
+0x00000502:     NULL
+
+0x00000503:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000001c)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x00000516)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(33)
+                DW_AT_linkage_name	("_ZN2fw5IUartC2Ev")
+                DW_AT_specification	(0x000001f7 "IUart")
+
+0x00000516:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x00000829 "fw::IUart *")
+                  DW_AT_artificial	(true)
+
+0x0000051f:     NULL
+
+0x00000520:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x0000000000000016)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_linkage_name	("_ZThn8_N2fw10DuplexPortD1Ev")
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(45)
+                DW_AT_artificial	(true)
+                DW_AT_external	(true)
+
+0x0000052b:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000259 "fw::Left")
+
+0x00000530:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000002b)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x00000543)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(52)
+                DW_AT_linkage_name	("_ZN2fw4LeftC2Ev")
+                DW_AT_specification	(0x0000027a "Left")
+
+0x00000543:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x0000082e "fw::Left *")
+                  DW_AT_artificial	(true)
+
+0x0000054c:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -16)
+                  DW_AT_name	("vtt")
+                  DW_AT_type	(0x00000833 "void **")
+                  DW_AT_artificial	(true)
+
+0x00000555:     NULL
+
+0x00000556:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000293 "fw::Right")
+
+0x0000055b:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000002b)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x0000056e)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(53)
+                DW_AT_linkage_name	("_ZN2fw5RightC2Ev")
+                DW_AT_specification	(0x000002b4 "Right")
+
+0x0000056e:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x00000839 "fw::Right *")
+                  DW_AT_artificial	(true)
+
+0x00000577:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -16)
+                  DW_AT_name	("vtt")
+                  DW_AT_type	(0x00000833 "void **")
+                  DW_AT_artificial	(true)
+
+0x00000580:     NULL
+
+0x00000581:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x0000000000000044)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x00000594)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(54)
+                DW_AT_linkage_name	("_ZN2fw7DiamondD2Ev")
+                DW_AT_specification	(0x00000248 "~Diamond")
+
+0x00000594:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x0000081f "fw::Diamond *")
+                  DW_AT_artificial	(true)
+
+0x0000059d:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -16)
+                  DW_AT_name	("vtt")
+                  DW_AT_type	(0x00000833 "void **")
+                  DW_AT_artificial	(true)
+
+0x000005a6:     NULL
+
+0x000005a7:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000001c)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_linkage_name	("_ZTv0_n32_N2fw7DiamondD1Ev")
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(54)
+                DW_AT_artificial	(true)
+                DW_AT_external	(true)
+
+0x000005b2:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x0000000000000016)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_linkage_name	("_ZThn16_N2fw7DiamondD1Ev")
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(54)
+                DW_AT_artificial	(true)
+                DW_AT_external	(true)
+
+0x000005bd:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000000e)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x000005d0)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(53)
+                DW_AT_linkage_name	("_ZN2fw5RightD2Ev")
+                DW_AT_specification	(0x000002bc "~Right")
+
+0x000005d0:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x00000839 "fw::Right *")
+                  DW_AT_artificial	(true)
+
+0x000005d9:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -16)
+                  DW_AT_name	("vtt")
+                  DW_AT_type	(0x00000833 "void **")
+                  DW_AT_artificial	(true)
+
+0x000005e2:     NULL
+
+0x000005e3:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000000)
+                DW_AT_high_pc	(0x000000000000000e)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_object_pointer	(0x000005f6)
+                DW_AT_decl_file	("/home/claude/lens/test/fixtures/src/layout.cpp")
+                DW_AT_decl_line	(52)
+                DW_AT_linkage_name	("_ZN2fw4LeftD2Ev")
+                DW_AT_specification	(0x00000282 "~Left")
+
+0x000005f6:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -8)
+                  DW_AT_name	("this")
+                  DW_AT_type	(0x0000082e "fw::Left *")
+                  DW_AT_artificial	(true)
+
+0x000005ff:     DW_TAG_formal_parameter
+                  DW_AT_location	(DW_OP_fbreg -16)
+                  DW_AT_name	("vtt")
+                  DW_AT_type	(0x00000833 "void **")
+                  DW_AT_artificial	(true)
+
+0x00000608:     NULL
+
+0x00000609:   DW_TAG_subprogram
+                DW_AT_low_pc	(0x0000000000000090)
+                DW_AT_high_pc	(0x00000000000000a5)
+                DW_AT_frame_base	(DW_OP_reg6 RBP)
+                DW_AT_linkage_name	("_GLOBAL__sub_I_layout.cpp")
+                DW_AT_artificial	(true)
+
+0x00000612:   DW_TAG_namespace
+                DW_AT_name	("std")
+
+0x00000614:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(51)
+                  DW_AT_import	(0x000006d9)
+
+0x0000061b:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(52)
+                  DW_AT_import	(0x000006ed)
+
+0x00000622:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(53)
+                  DW_AT_import	(0x00000701)
+
+0x00000629:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(54)
+                  DW_AT_import	(0x00000711)
+
+0x00000630:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(56)
+                  DW_AT_import	(0x00000725)
+
+0x00000637:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(57)
+                  DW_AT_import	(0x0000072d)
+
+0x0000063e:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(58)
+                  DW_AT_import	(0x00000735)
+
+0x00000645:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(59)
+                  DW_AT_import	(0x0000073d)
+
+0x0000064c:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(61)
+                  DW_AT_import	(0x00000745)
+
+0x00000653:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(62)
+                  DW_AT_import	(0x00000755)
+
+0x0000065a:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(63)
+                  DW_AT_import	(0x00000765)
+
+0x00000661:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(64)
+                  DW_AT_import	(0x00000775)
+
+0x00000668:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(66)
+                  DW_AT_import	(0x00000785)
+
+0x0000066f:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(67)
+                  DW_AT_import	(0x00000795)
+
+0x00000676:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(69)
+                  DW_AT_import	(0x00000340)
+
+0x0000067d:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(70)
+                  DW_AT_import	(0x000003bf)
+
+0x00000684:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(71)
+                  DW_AT_import	(0x00000354)
+
+0x0000068b:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(72)
+                  DW_AT_import	(0x000003fe)
+
+0x00000692:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(74)
+                  DW_AT_import	(0x0000079d)
+
+0x00000699:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(75)
+                  DW_AT_import	(0x000007a5)
+
+0x000006a0:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(76)
+                  DW_AT_import	(0x000007ad)
+
+0x000006a7:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(77)
+                  DW_AT_import	(0x000007b5)
+
+0x000006ae:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(79)
+                  DW_AT_import	(0x000007bd)
+
+0x000006b5:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(80)
+                  DW_AT_import	(0x000007cd)
+
+0x000006bc:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(81)
+                  DW_AT_import	(0x000007dd)
+
+0x000006c3:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(82)
+                  DW_AT_import	(0x000007ed)
+
+0x000006ca:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(84)
+                  DW_AT_import	(0x000007fd)
+
+0x000006d1:     DW_TAG_imported_declaration
+                  DW_AT_decl_file	("/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/cstdint")
+                  DW_AT_decl_line	(85)
+                  DW_AT_import	(0x0000080d)
+
+0x000006d8:     NULL
+
+0x000006d9:   DW_TAG_typedef
+                DW_AT_type	(0x000006e1 "__int8_t")
+                DW_AT_name	("int8_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-intn.h")
+                DW_AT_decl_line	(24)
+
+0x000006e1:   DW_TAG_typedef
+                DW_AT_type	(0x000006e9 "signed char")
+                DW_AT_name	("__int8_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(37)
+
+0x000006e9:   DW_TAG_base_type
+                DW_AT_name	("signed char")
+                DW_AT_encoding	(DW_ATE_signed_char)
+                DW_AT_byte_size	(0x01)
+
+0x000006ed:   DW_TAG_typedef
+                DW_AT_type	(0x000006f5 "__int16_t")
+                DW_AT_name	("int16_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-intn.h")
+                DW_AT_decl_line	(25)
+
+0x000006f5:   DW_TAG_typedef
+                DW_AT_type	(0x000006fd "short")
+                DW_AT_name	("__int16_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(39)
+
+0x000006fd:   DW_TAG_base_type
+                DW_AT_name	("short")
+                DW_AT_encoding	(DW_ATE_signed)
+                DW_AT_byte_size	(0x02)
+
+0x00000701:   DW_TAG_typedef
+                DW_AT_type	(0x00000709 "__int32_t")
+                DW_AT_name	("int32_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-intn.h")
+                DW_AT_decl_line	(26)
+
+0x00000709:   DW_TAG_typedef
+                DW_AT_type	(0x0000038e "int")
+                DW_AT_name	("__int32_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(41)
+
+0x00000711:   DW_TAG_typedef
+                DW_AT_type	(0x00000719 "__int64_t")
+                DW_AT_name	("int64_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-intn.h")
+                DW_AT_decl_line	(27)
+
+0x00000719:   DW_TAG_typedef
+                DW_AT_type	(0x00000721 "long")
+                DW_AT_name	("__int64_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(44)
+
+0x00000721:   DW_TAG_base_type
+                DW_AT_name	("long")
+                DW_AT_encoding	(DW_ATE_signed)
+                DW_AT_byte_size	(0x08)
+
+0x00000725:   DW_TAG_typedef
+                DW_AT_type	(0x000006e9 "signed char")
+                DW_AT_name	("int_fast8_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(47)
+
+0x0000072d:   DW_TAG_typedef
+                DW_AT_type	(0x00000721 "long")
+                DW_AT_name	("int_fast16_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(49)
+
+0x00000735:   DW_TAG_typedef
+                DW_AT_type	(0x00000721 "long")
+                DW_AT_name	("int_fast32_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(50)
+
+0x0000073d:   DW_TAG_typedef
+                DW_AT_type	(0x00000721 "long")
+                DW_AT_name	("int_fast64_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(51)
+
+0x00000745:   DW_TAG_typedef
+                DW_AT_type	(0x0000074d "__int_least8_t")
+                DW_AT_name	("int_least8_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-least.h")
+                DW_AT_decl_line	(25)
+
+0x0000074d:   DW_TAG_typedef
+                DW_AT_type	(0x000006e1 "__int8_t")
+                DW_AT_name	("__int_least8_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(52)
+
+0x00000755:   DW_TAG_typedef
+                DW_AT_type	(0x0000075d "__int_least16_t")
+                DW_AT_name	("int_least16_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-least.h")
+                DW_AT_decl_line	(26)
+
+0x0000075d:   DW_TAG_typedef
+                DW_AT_type	(0x000006f5 "__int16_t")
+                DW_AT_name	("__int_least16_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(54)
+
+0x00000765:   DW_TAG_typedef
+                DW_AT_type	(0x0000076d "__int_least32_t")
+                DW_AT_name	("int_least32_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-least.h")
+                DW_AT_decl_line	(27)
+
+0x0000076d:   DW_TAG_typedef
+                DW_AT_type	(0x00000709 "__int32_t")
+                DW_AT_name	("__int_least32_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(56)
+
+0x00000775:   DW_TAG_typedef
+                DW_AT_type	(0x0000077d "__int_least64_t")
+                DW_AT_name	("int_least64_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-least.h")
+                DW_AT_decl_line	(28)
+
+0x0000077d:   DW_TAG_typedef
+                DW_AT_type	(0x00000719 "__int64_t")
+                DW_AT_name	("__int_least64_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(58)
+
+0x00000785:   DW_TAG_typedef
+                DW_AT_type	(0x0000078d "__intmax_t")
+                DW_AT_name	("intmax_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(90)
+
+0x0000078d:   DW_TAG_typedef
+                DW_AT_type	(0x00000721 "long")
+                DW_AT_name	("__intmax_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(72)
+
+0x00000795:   DW_TAG_typedef
+                DW_AT_type	(0x00000721 "long")
+                DW_AT_name	("intptr_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(76)
+
+0x0000079d:   DW_TAG_typedef
+                DW_AT_type	(0x00000350 "unsigned char")
+                DW_AT_name	("uint_fast8_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(60)
+
+0x000007a5:   DW_TAG_typedef
+                DW_AT_type	(0x0000040e "unsigned long")
+                DW_AT_name	("uint_fast16_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(62)
+
+0x000007ad:   DW_TAG_typedef
+                DW_AT_type	(0x0000040e "unsigned long")
+                DW_AT_name	("uint_fast32_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(63)
+
+0x000007b5:   DW_TAG_typedef
+                DW_AT_type	(0x0000040e "unsigned long")
+                DW_AT_name	("uint_fast64_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(64)
+
+0x000007bd:   DW_TAG_typedef
+                DW_AT_type	(0x000007c5 "__uint_least8_t")
+                DW_AT_name	("uint_least8_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-least.h")
+                DW_AT_decl_line	(31)
+
+0x000007c5:   DW_TAG_typedef
+                DW_AT_type	(0x00000348 "__uint8_t")
+                DW_AT_name	("__uint_least8_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(53)
+
+0x000007cd:   DW_TAG_typedef
+                DW_AT_type	(0x000007d5 "__uint_least16_t")
+                DW_AT_name	("uint_least16_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-least.h")
+                DW_AT_decl_line	(32)
+
+0x000007d5:   DW_TAG_typedef
+                DW_AT_type	(0x000003c7 "__uint16_t")
+                DW_AT_name	("__uint_least16_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(55)
+
+0x000007dd:   DW_TAG_typedef
+                DW_AT_type	(0x000007e5 "__uint_least32_t")
+                DW_AT_name	("uint_least32_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-least.h")
+                DW_AT_decl_line	(33)
+
+0x000007e5:   DW_TAG_typedef
+                DW_AT_type	(0x0000035c "__uint32_t")
+                DW_AT_name	("__uint_least32_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(57)
+
+0x000007ed:   DW_TAG_typedef
+                DW_AT_type	(0x000007f5 "__uint_least64_t")
+                DW_AT_name	("uint_least64_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/stdint-least.h")
+                DW_AT_decl_line	(34)
+
+0x000007f5:   DW_TAG_typedef
+                DW_AT_type	(0x00000406 "__uint64_t")
+                DW_AT_name	("__uint_least64_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(59)
+
+0x000007fd:   DW_TAG_typedef
+                DW_AT_type	(0x00000805 "__uintmax_t")
+                DW_AT_name	("uintmax_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(91)
+
+0x00000805:   DW_TAG_typedef
+                DW_AT_type	(0x0000040e "unsigned long")
+                DW_AT_name	("__uintmax_t")
+                DW_AT_decl_file	("/usr/include/x86_64-linux-gnu/bits/types.h")
+                DW_AT_decl_line	(73)
+
+0x0000080d:   DW_TAG_typedef
+                DW_AT_type	(0x0000040e "unsigned long")
+                DW_AT_name	("uintptr_t")
+                DW_AT_decl_file	("/usr/include/stdint.h")
+                DW_AT_decl_line	(79)
+
+0x00000815:   DW_TAG_pointer_type
+                DW_AT_type	(0x000000a2 "fw::SpiDriver")
+
+0x0000081a:   DW_TAG_pointer_type
+                DW_AT_type	(0x0000014b "fw::DuplexPort")
+
+0x0000081f:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000200 "fw::Diamond")
+
+0x00000824:   DW_TAG_pointer_type
+                DW_AT_type	(0x000000fe "fw::ISpi")
+
+0x00000829:   DW_TAG_pointer_type
+                DW_AT_type	(0x000001bc "fw::IUart")
+
+0x0000082e:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000259 "fw::Left")
+
+0x00000833:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000838 "void *")
+
+0x00000838:   DW_TAG_pointer_type
+
+0x00000839:   DW_TAG_pointer_type
+                DW_AT_type	(0x00000293 "fw::Right")
+
+0x0000083e:   NULL

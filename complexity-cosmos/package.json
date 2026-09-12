@@ -1,0 +1,128 @@
+{
+  "name": "complexity-cosmos",
+  "displayName": "Complexity Cosmos",
+  "description": "Per-function code complexity for C/C++, tracked over time, visualised as celestial bodies from a rock to a black hole.",
+  "version": "0.1.0",
+  "publisher": "adi",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization",
+    "Linters",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "complexity",
+    "cyclomatic",
+    "c",
+    "cpp",
+    "embedded",
+    "metrics"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:c",
+    "onLanguage:cpp"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "complexityCosmos.showPanel",
+        "title": "Complexity Cosmos: Open Panel",
+        "category": "Complexity Cosmos"
+      },
+      {
+        "command": "complexityCosmos.snapshot",
+        "title": "Complexity Cosmos: Snapshot Current File",
+        "category": "Complexity Cosmos"
+      },
+      {
+        "command": "complexityCosmos.selectMetric",
+        "title": "Complexity Cosmos: Select Metric",
+        "category": "Complexity Cosmos"
+      }
+    ],
+    "configuration": {
+      "title": "Complexity Cosmos",
+      "properties": {
+        "complexityCosmos.metric": {
+          "type": "string",
+          "enum": [
+            "ccn",
+            "nloc",
+            "tokens",
+            "params",
+            "length"
+          ],
+          "enumDescriptions": [
+            "Cyclomatic complexity number (independent paths)",
+            "Lines of code (excluding comments and blanks)",
+            "Token count",
+            "Parameter count",
+            "Function span in source lines"
+          ],
+          "default": "ccn",
+          "description": "Active complexity metric shown in the status bar, diagnostics and panel."
+        },
+        "complexityCosmos.thresholds": {
+          "type": "object",
+          "default": {
+            "ccn": 10,
+            "nloc": 60,
+            "tokens": 400,
+            "params": 5,
+            "length": 80
+          },
+          "description": "Per-metric threshold. A function at or above its metric threshold is flagged.",
+          "properties": {
+            "ccn": {
+              "type": "number"
+            },
+            "nloc": {
+              "type": "number"
+            },
+            "tokens": {
+              "type": "number"
+            },
+            "params": {
+              "type": "number"
+            },
+            "length": {
+              "type": "number"
+            }
+          }
+        },
+        "complexityCosmos.snapshotOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Record a timestamped history snapshot for each C/C++ file on save."
+        },
+        "complexityCosmos.historyLimit": {
+          "type": "number",
+          "default": 50,
+          "minimum": 2,
+          "description": "Maximum number of snapshots retained per function in .vscode/complexity-history.json."
+        },
+        "complexityCosmos.pythonPath": {
+          "type": "string",
+          "default": "python",
+          "description": "Python interpreter used to run the lizard backend. Must have the 'lizard' package installed."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "typecheck": "tsc -p . --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.28.1",
+    "typescript": "^5.3.0"
+  }
+}

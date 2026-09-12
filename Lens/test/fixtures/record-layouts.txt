@@ -1,0 +1,119 @@
+
+*** Dumping AST Record Layout
+         0 | struct fw::ISpi
+         0 |   (ISpi vtable pointer)
+           | [sizeof=8, dsize=8, align=8,
+           |  nvsize=8, nvalign=8]
+
+*** Dumping AST Record Layout
+         0 | struct fw::SpiDriver
+         0 |   struct fw::ISpi (primary base)
+         0 |     (ISpi vtable pointer)
+         8 |   uint8_t channel_
+        16 |   volatile uint32_t * base_
+           | [sizeof=24, dsize=24, align=8,
+           |  nvsize=24, nvalign=8]
+
+*** Dumping AST Record Layout
+         0 | struct fw::IUart
+         0 |   (IUart vtable pointer)
+           | [sizeof=8, dsize=8, align=8,
+           |  nvsize=8, nvalign=8]
+
+*** Dumping AST Record Layout
+         0 | struct fw::DuplexPort
+         0 |   struct fw::ISpi (primary base)
+         0 |     (ISpi vtable pointer)
+         8 |   struct fw::IUart (base)
+         8 |     (IUart vtable pointer)
+        16 |   uint16_t depth_
+           | [sizeof=24, dsize=18, align=8,
+           |  nvsize=18, nvalign=8]
+
+*** Dumping AST Record Layout
+         0 | struct fw::Left
+         8 |   uint8_t l_
+         0 |   struct fw::ISpi (primary virtual base)
+         0 |     (ISpi vtable pointer)
+           | [sizeof=16, dsize=9, align=8,
+           |  nvsize=9, nvalign=8]
+
+*** Dumping AST Record Layout
+         0 | struct fw::Right
+         8 |   uint8_t r_
+         0 |   struct fw::ISpi (primary virtual base)
+         0 |     (ISpi vtable pointer)
+           | [sizeof=16, dsize=9, align=8,
+           |  nvsize=9, nvalign=8]
+
+*** Dumping AST Record Layout
+         0 | struct fw::Diamond
+         0 |   struct fw::Left (primary base)
+         8 |     uint8_t l_
+        16 |   struct fw::Right (base)
+        24 |     uint8_t r_
+        25 |   uint8_t d_
+         0 |   struct fw::ISpi (virtual base)
+         0 |     (ISpi vtable pointer)
+           | [sizeof=32, dsize=26, align=8,
+           |  nvsize=26, nvalign=8]
+
+*** Dumping AST Record Layout
+         0 | struct fw::PinConfig
+         0 |   uint8_t port
+         4 |   uint32_t mask
+         8 |   uint8_t pin
+           | [sizeof=12, dsize=12, align=4,
+           |  nvsize=12, nvalign=4]
+
+*** Dumping AST Record Layout
+         0 | struct fw::StatusReg
+     0:0-0 |   uint32_t ready
+     0:1-1 |   uint32_t error
+     0:2-7 |   uint32_t count
+     1:0-7 |   uint32_t 
+    2:0-15 |   uint32_t code
+           | [sizeof=4, dsize=4, align=4,
+           |  nvsize=4, nvalign=4]
+
+*** Dumping AST Record Layout
+         0 | union fw::RegisterView
+         0 |   uint32_t raw
+         0 |   struct fw::StatusReg bits
+     0:0-0 |     uint32_t ready
+     0:1-1 |     uint32_t error
+     0:2-7 |     uint32_t count
+     1:0-7 |     uint32_t 
+    2:0-15 |     uint32_t code
+           | [sizeof=4, dsize=4, align=4,
+           |  nvsize=4, nvalign=4]
+
+*** Dumping AST Record Layout
+         0 | struct fw::Tag (empty)
+           | [sizeof=1, dsize=1, align=1,
+           |  nvsize=1, nvalign=1]
+
+*** Dumping AST Record Layout
+         0 | struct fw::Tagged
+         0 |   struct fw::Tag (base) (empty)
+         0 |   uint32_t value_
+           | [sizeof=4, dsize=4, align=4,
+           |  nvsize=4, nvalign=4]
+
+*** Dumping AST Record Layout
+         0 | struct fw::Wasteful
+         0 |   uint8_t a
+         8 |   uint64_t b
+        16 |   uint8_t c
+        24 |   uint64_t d
+           | [sizeof=32, dsize=32, align=8,
+           |  nvsize=32, nvalign=8]
+
+*** Dumping AST Record Layout
+         0 | struct fw::Tight
+         0 |   uint64_t b
+         8 |   uint64_t d
+        16 |   uint8_t a
+        17 |   uint8_t c
+           | [sizeof=24, dsize=24, align=8,
+           |  nvsize=24, nvalign=8]

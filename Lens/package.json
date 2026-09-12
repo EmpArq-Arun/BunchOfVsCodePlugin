@@ -1,0 +1,429 @@
+{
+  "name": "lens",
+  "displayName": "Lens",
+  "description": "C++ comprehension workbench for C engineers: journal, structure, flow, rosetta, layout and cost lenses.",
+  "version": "1.0.9",
+  "publisher": "ArunnK",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Education",
+    "Notebooks",
+    "Visualization"
+  ],
+  "keywords": [
+    "c++",
+    "embedded",
+    "comprehension",
+    "annotations",
+    "learning"
+  ],
+  "activationEvents": [
+    "onLanguage:c",
+    "onLanguage:cpp"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "lens.structure",
+        "title": "Lens: Show Structure Diagram",
+        "icon": "$(type-hierarchy)"
+      },
+      {
+        "command": "lens.flow",
+        "title": "Lens: Show Call Flow",
+        "icon": "$(references)"
+      },
+      {
+        "command": "lens.rosetta",
+        "title": "Lens: Explain This Function",
+        "icon": "$(book)"
+      },
+      {
+        "command": "lens.layout",
+        "title": "Lens: Show Object Layouts",
+        "icon": "$(symbol-array)"
+      },
+      {
+        "command": "lens.cost",
+        "title": "Lens: Show Image Cost",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "lens.sequence",
+        "title": "Lens: Show Call Sequence",
+        "icon": "$(list-ordered)"
+      },
+      {
+        "command": "lens.lifetime",
+        "title": "Lens: Show Object Lifetimes",
+        "icon": "$(watch)"
+      },
+      {
+        "command": "lens.complexity",
+        "title": "Lens: Show Complexity"
+      },
+      {
+        "command": "lens.primer",
+        "title": "Lens: Write Module Primer",
+        "icon": "$(book)"
+      },
+      {
+        "command": "lens.rosettaClear",
+        "title": "Lens: Clear Inline Explanations"
+      },
+      {
+        "command": "lens.annotate",
+        "title": "Lens: Annotate Symbol",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "lens.annotateWtf",
+        "title": "Lens: Flag as Open Question",
+        "icon": "$(question)"
+      },
+      {
+        "command": "lens.showAnnotations",
+        "title": "Lens: Show Annotations for Symbol"
+      },
+      {
+        "command": "lens.openEntry",
+        "title": "Lens: Open Journal Entry"
+      },
+      {
+        "command": "lens.revealAnchor",
+        "title": "Lens: Go to Annotated Symbol"
+      },
+      {
+        "command": "lens.review",
+        "title": "Lens: Start Review Session",
+        "icon": "$(history)"
+      },
+      {
+        "command": "lens.resolveEntry",
+        "title": "Lens: Resolve Open Question",
+        "icon": "$(check)"
+      },
+      {
+        "command": "lens.deleteEntry",
+        "title": "Lens: Delete Journal Entry",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "lens.export",
+        "title": "Lens: Export Journal to Single Markdown"
+      },
+      {
+        "command": "lens.reload",
+        "title": "Lens: Reload Journal",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "lens.status",
+        "title": "Lens: Show Ramp-up Status"
+      },
+      {
+        "command": "lens.selectDevice",
+        "title": "Lens: Select Target Device Macro"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "lens",
+          "title": "Lens",
+          "icon": "media/lens.svg"
+        }
+      ]
+    },
+    "views": {
+      "lens": [
+        {
+          "id": "lens.openQuestions",
+          "name": "Open Questions",
+          "icon": "media/lens.svg"
+        },
+        {
+          "id": "lens.reviewQueue",
+          "name": "Review Queue",
+          "icon": "media/lens.svg"
+        },
+        {
+          "id": "lens.journal",
+          "name": "Journal",
+          "icon": "media/lens.svg"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "lens.openQuestions",
+        "contents": "No open questions yet.\n\nWhen you hit C++ you don't understand, put your cursor on the symbol and flag it. The list of things you don't yet understand is your ramp-up plan.\n\n[Flag an Open Question](command:lens.annotateWtf)"
+      },
+      {
+        "view": "lens.reviewQueue",
+        "contents": "Nothing due for review.\n\nEntries resurface on a decaying schedule so you can check whether they still surprise you."
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "lens.structure",
+          "when": "editorLangId == cpp || editorLangId == c",
+          "group": "lens@0"
+        },
+        {
+          "command": "lens.flow",
+          "when": "editorLangId == cpp || editorLangId == c",
+          "group": "lens@0"
+        },
+        {
+          "command": "lens.rosetta",
+          "when": "editorLangId == cpp || editorLangId == c",
+          "group": "lens@0"
+        },
+        {
+          "command": "lens.layout",
+          "when": "editorLangId == cpp || editorLangId == c",
+          "group": "lens@0"
+        },
+        {
+          "command": "lens.annotate",
+          "when": "editorLangId == cpp || editorLangId == c",
+          "group": "lens@1"
+        },
+        {
+          "command": "lens.annotateWtf",
+          "when": "editorLangId == cpp || editorLangId == c",
+          "group": "lens@2"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "lens.reload",
+          "when": "view == lens.journal",
+          "group": "navigation"
+        },
+        {
+          "command": "lens.review",
+          "when": "view == lens.reviewQueue",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "lens.resolveEntry",
+          "when": "viewItem == lens.entry.wtf",
+          "group": "inline"
+        },
+        {
+          "command": "lens.deleteEntry",
+          "when": "viewItem =~ /^lens\\.entry/",
+          "group": "danger"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "lens.rosetta",
+        "key": "ctrl+alt+e",
+        "mac": "cmd+alt+e",
+        "when": "editorTextFocus && (editorLangId == cpp || editorLangId == c)"
+      },
+      {
+        "command": "lens.annotateWtf",
+        "key": "ctrl+alt+/",
+        "mac": "cmd+alt+/",
+        "when": "editorTextFocus && (editorLangId == cpp || editorLangId == c)"
+      },
+      {
+        "command": "lens.annotate",
+        "key": "ctrl+alt+.",
+        "mac": "cmd+alt+.",
+        "when": "editorTextFocus && (editorLangId == cpp || editorLangId == c)"
+      }
+    ],
+    "configuration": {
+      "title": "Lens",
+      "properties": {
+        "lens.journalPath": {
+          "type": "string",
+          "default": ".lens/journal",
+          "description": "Workspace-relative folder holding journal entries. Markdown is the source of truth; commit this folder."
+        },
+        "lens.reviewIntervals": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "default": [
+            7,
+            30,
+            90
+          ],
+          "description": "Days until an entry resurfaces, indexed by confidence level. Once confidence exceeds the last interval the entry retires."
+        },
+        "lens.languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "c",
+            "cpp"
+          ],
+          "description": "Language IDs Lens attaches to."
+        },
+        "lens.showGutterIcons": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a gutter marker on annotated symbols."
+        },
+        "lens.symbolProviderTimeoutMs": {
+          "type": "number",
+          "default": 15000,
+          "description": "How long to wait for the language server to return document symbols. The first request for a large translation unit can take many seconds while clangd parses it and its headers."
+        },
+        "lens.clangUml.path": {
+          "type": "string",
+          "default": "clang-uml",
+          "description": "Path to the clang-uml binary. Leave as the bare name to use PATH."
+        },
+        "lens.clangUml.timeoutSeconds": {
+          "type": "number",
+          "default": 180,
+          "description": "How long to let clang-uml run before giving up."
+        },
+        "lens.compilationDatabase": {
+          "type": "string",
+          "default": "",
+          "description": "Path to compile_commands.json, or to the directory holding it. Accepts a differently named file such as compile_commands_fixed.json. Empty searches the workspace, build/, out/, Debug/, Release/ and .vscode/."
+        },
+        "lens.structure.namespaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Restrict structure diagrams to these namespaces. Empty means no namespace filter."
+        },
+        "lens.structure.excludeNamespaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Namespaces to exclude from structure diagrams. Vendor SDK namespaces belong here."
+        },
+        "lens.flow.maxDepth": {
+          "type": "number",
+          "default": 6,
+          "description": "How many call levels to follow from the selected function."
+        },
+        "lens.flow.maxNodes": {
+          "type": "number",
+          "default": 120,
+          "description": "Stop expanding once the call tree reaches this many functions."
+        },
+        "lens.flow.depthWarning": {
+          "type": "number",
+          "default": 8,
+          "description": "Warn when a call chain exceeds this many frames. Embedded stacks are small."
+        },
+        "lens.flow.isrPatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Extra regular expressions identifying interrupt handlers, beyond the CMSIS names and *_IRQHandler."
+        },
+        "lens.clang.path": {
+          "type": "string",
+          "default": "clang++",
+          "description": "Path to a clang or clang++ binary used for AST analysis. It need not be your build compiler, but it must understand your build flags."
+        },
+        "lens.clang.timeoutSeconds": {
+          "type": "number",
+          "default": 90,
+          "description": "How long to let a clang AST dump run before giving up."
+        },
+        "lens.pahole.path": {
+          "type": "string",
+          "default": "pahole",
+          "description": "Path to pahole (from the dwarves package). Used to cross-check predicted layouts against the DWARF your compiler actually emitted."
+        },
+        "lens.pahole.objectFile": {
+          "type": "string",
+          "default": "",
+          "description": "Workspace-relative path to a .o or .elf built with -g. Without it, layouts are shown as predicted only and internal holes are not computed."
+        },
+        "lens.cost.elfFile": {
+          "type": "string",
+          "default": "",
+          "description": "Workspace-relative path to the linked, unstripped ELF. Leave empty to search for *.elf, *.axf or *.out."
+        },
+        "lens.trace.file": {
+          "type": "string",
+          "default": "",
+          "description": "Workspace-relative path to a trace, in the format produced by `uftrace replay -f duration,tid` or by your own -finstrument-functions decoder."
+        },
+        "lens.complexity.warn": {
+          "type": "number",
+          "default": 10,
+          "description": "Cyclomatic complexity above which a function is flagged."
+        },
+        "lens.complexity.depth": {
+          "type": "number",
+          "default": 4,
+          "description": "Control-flow nesting depth above which a function is flagged."
+        },
+        "lens.dwarfdump.path": {
+          "type": "string",
+          "default": "llvm-dwarfdump",
+          "description": "Path to llvm-dwarfdump. Works on Windows, reads polymorphic classes that pahole cannot, and ships with the LLVM you already use for lens.clang.path."
+        },
+        "lens.observedLayout.provider": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "dwarfdump",
+            "pahole",
+            "none"
+          ],
+          "default": "auto",
+          "description": "Which tool supplies observed member sizes and internal holes. 'auto' prefers llvm-dwarfdump, which is portable and handles polymorphic classes."
+        },
+        "lens.clangUml.gitWorkaround": {
+          "type": "boolean",
+          "default": true,
+          "description": "Some clang-uml versions require a git repository and fail otherwise. When the project is not under version control, run clang-uml from a scratch repository inside .lens/cache. Nothing is written outside .lens/."
+        },
+        "lens.extraCompileFlags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Flags added to every compile command Lens builds, e.g. [\"-DSTM32G474xx\", \"-DUSE_HAL_DRIVER\"]. Use this when your compilation database is missing defines the project needs \u2014 without the vendor device macro, every CMSIS header fails."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "package": "npm run typecheck && npm run build && vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.4.0"
+  }
+}

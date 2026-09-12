@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Start: rounded capsule -->
+  <rect x="7" y="1" width="10" height="4" rx="2" fill="currentColor" opacity="0.9"/>
+  <!-- Connector down -->
+  <rect x="11.5" y="5" width="1" height="2" fill="currentColor"/>
+  <!-- Decision diamond -->
+  <polygon points="12,7.5 19.5,12 12,16.5 4.5,12" fill="currentColor"/>
+  <!-- True branch: short stub right -->
+  <rect x="19.5" y="11.5" width="3" height="1" fill="currentColor"/>
+  <!-- False connector down -->
+  <rect x="11.5" y="16.5" width="1" height="2" fill="currentColor"/>
+  <!-- Exit: rounded capsule -->
+  <rect x="7" y="18.5" width="10" height="4" rx="2" fill="currentColor" opacity="0.9"/>
+</svg>

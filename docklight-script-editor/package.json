@@ -1,0 +1,79 @@
+{
+  "name": "docklight-script-editor",
+  "displayName": "Docklight Script Editor",
+  "description": "Visual, table-based editor for Docklight (.ptp) project/script files — view and edit Send Sequences without hand-editing hex bytes.",
+  "version": "1.0.0",
+  "publisher": "Arunn-K",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "docklightScriptEditor.ptp",
+        "displayName": "Docklight Script Editor",
+        "selector": [
+          { "filenamePattern": "*.ptp" }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "docklightScriptEditor.preview",
+        "title": "Docklight: Open Visual Editor",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "docklightScriptEditor.addSendCommand",
+        "title": "Docklight: Add Send Command",
+        "icon": "$(add)"
+      },
+      {
+        "command": "docklightScriptEditor.openSource",
+        "title": "Docklight: Open as Text",
+        "icon": "$(file-code)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "docklightScriptEditor.preview",
+          "when": "resourceExtname == .ptp && activeCustomEditorId != docklightScriptEditor.ptp",
+          "group": "navigation@1"
+        },
+        {
+          "command": "docklightScriptEditor.addSendCommand",
+          "when": "activeCustomEditorId == docklightScriptEditor.ptp",
+          "group": "navigation@1"
+        },
+        {
+          "command": "docklightScriptEditor.openSource",
+          "when": "activeCustomEditorId == docklightScriptEditor.ptp",
+          "group": "navigation@2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "docklightScriptEditor.preview",
+          "when": "resourceExtname == .ptp",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0"
+  }
+}

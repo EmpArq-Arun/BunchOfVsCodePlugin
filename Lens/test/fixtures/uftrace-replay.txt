@@ -1,0 +1,51 @@
+# DURATION     TID     FUNCTION
+            [   534] | _GLOBAL__sub_I_cost.cpp() {
+            [   534] |   __cxx_global_var_init() {
+   0.059 us [   534] |     fw::Registry::Registry();
+   0.337 us [   534] |     __cxa_atexit();
+   1.478 us [   534] |   } /* __cxx_global_var_init */
+   2.088 us [   534] | } /* _GLOBAL__sub_I_cost.cpp */
+            [   534] | main() {
+            [   534] |   fw::SpiDriver::SpiDriver() {
+   0.063 us [   534] |     fw::ISpi::ISpi();
+   0.303 us [   534] |   } /* fw::SpiDriver::SpiDriver */
+            [   534] |   fw::DuplexPort::DuplexPort() {
+   0.046 us [   534] |     fw::ISpi::ISpi();
+   0.045 us [   534] |     fw::IUart::IUart();
+   0.319 us [   534] |   } /* fw::DuplexPort::DuplexPort */
+            [   534] |   fw::Diamond::Diamond() {
+   0.046 us [   534] |     fw::ISpi::ISpi();
+   0.078 us [   534] |     fw::Left::Left();
+   0.077 us [   534] |     fw::Right::Right();
+   0.495 us [   534] |   } /* fw::Diamond::Diamond */
+   0.048 us [   534] |   fw::DuplexPort::transfer();
+            [   534] |   fw::is_uart() {
+   5.773 us [   534] |     __dynamic_cast();
+   6.293 us [   534] |   } /* fw::is_uart */
+            [   534] |   fw::counter() {
+   1.032 us [   534] |     __cxa_guard_acquire();
+   0.046 us [   534] |     fw::seed();
+   0.662 us [   534] |     __cxa_guard_release();
+   2.147 us [   534] |   } /* fw::counter */
+            [   534] |   fw::risky() {
+   1.146 us [   534] |     __cxa_allocate_exception();
+ 271.530 us [   534] |   } /* fw::risky */
+   0.097 us [   534] |   fw::Ring::Ring();
+   0.063 us [   534] |   fw::Ring::Ring();
+   0.046 us [   534] |   fw::Ring::Ring();
+            [   534] |   fw::Diamond::~Diamond() {
+            [   534] |     fw::Diamond::~Diamond() {
+   0.044 us [   534] |       fw::Right::~Right();
+   0.045 us [   534] |       fw::Left::~Left();
+   0.332 us [   534] |     } /* fw::Diamond::~Diamond */
+   0.045 us [   534] |     fw::ISpi::~ISpi();
+   0.849 us [   534] |   } /* fw::Diamond::~Diamond */
+            [   534] |   fw::DuplexPort::~DuplexPort() {
+   0.046 us [   534] |     fw::IUart::~IUart();
+   0.046 us [   534] |     fw::ISpi::~ISpi();
+   0.299 us [   534] |   } /* fw::DuplexPort::~DuplexPort */
+            [   534] |   fw::SpiDriver::~SpiDriver() {
+   0.043 us [   534] |     fw::ISpi::~ISpi();
+   0.174 us [   534] |   } /* fw::SpiDriver::~SpiDriver */
+ 287.132 us [   534] | } /* main */
+   0.057 us [   534] | fw::Registry::~Registry();

@@ -1,0 +1,56 @@
+{
+  "name": "vistacode",
+  "displayName": "Vistacode",
+  "description": "Interactive C/C++ control-flow flowchart with drag-and-drop layout",
+  "version": "1.1.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "publisher": "Arunn-Kaushalya",
+  "icon": "media/vistacode-icon.png",
+  "categories": [
+    "Visualization"
+  ],
+  "activationEvents": [
+    "onLanguage:c",
+    "onLanguage:cpp"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vistacode.showFlowchart",
+        "title": "Vistacode: Show Flowchart"
+      },
+      {
+        "command": "vistacode.exportDiagram",
+        "title": "Vistacode: Export Diagram"
+      }
+    ]
+  },
+  "scripts": {
+    "build:extension": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:web-tree-sitter --external:@resvg/resvg-wasm --format=cjs --platform=node --minify",
+    "build:webview": "esbuild ./src/webviewScript/main.ts --bundle --outfile=dist/webview/main.js --format=iife --platform=browser --minify",
+    "copy:assets": "node -e \"const{cpSync,mkdirSync}=require('fs'); mkdirSync('dist/wasm',{recursive:true}); const wp=require.resolve('web-tree-sitter'); cpSync(wp.replace('web-tree-sitter.js','tree-sitter.wasm'),'dist/wasm/tree-sitter.wasm'); const rp=require.resolve('@resvg/resvg-wasm'); cpSync(rp.replace('index.js','index_bg.wasm'),'dist/wasm/resvg.wasm'); ['c','cpp'].forEach(l=>cpSync(require.resolve('tree-sitter-wasms/out/tree-sitter-'+l+'.wasm'),'dist/wasm/tree-sitter-'+l+'.wasm'));\"",
+    "generate:icon": "node scripts/generateIcon.mjs",
+    "build": "npm run generate:icon && npm run build:extension && npm run build:webview && npm run copy:assets",
+    "compile-check": "tsc --noEmit",
+    "test": "npx tsx test/run-all.ts"
+  },
+  "dependencies": {
+    "@hpcc-js/wasm-graphviz": "^1.22.2",
+    "@resvg/resvg-wasm": "^2.6.2",
+    "cytoscape": "^3.34.0",
+    "cytoscape-dagre": "^4.0.0",
+    "tree-sitter-wasms": "*",
+    "web-tree-sitter": "0.22.6"
+  },
+  "devDependencies": {
+    "@types/cytoscape": "^3.21.9",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.28.1",
+    "tsx": "^4.0.0",
+    "typescript": "^5.3.0"
+  }
+}

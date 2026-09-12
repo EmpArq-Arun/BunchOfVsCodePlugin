@@ -1,0 +1,476 @@
+{
+  "diagram_type": "class",
+  "elements": [
+    {
+      "bases": [],
+      "comment": {
+        "brief": [
+          " This is class A\n"
+        ],
+        "formatted": "\\brief This is class A"
+      },
+      "display_name": "A",
+      "id": "7901073918843258388",
+      "is_abstract": true,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "foo_a",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": true,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "foo_a",
+          "parameters": [],
+          "source_location": {
+            "column": 18,
+            "file": "t00002.cc",
+            "line": 10,
+            "translation_unit": "t00002.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        },
+        {
+          "access": "public",
+          "display_name": "foo_c",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": true,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "foo_c",
+          "parameters": [],
+          "source_location": {
+            "column": 18,
+            "file": "t00002.cc",
+            "line": 12,
+            "translation_unit": "t00002.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        }
+      ],
+      "name": "A",
+      "namespace": "clanguml::t00002",
+      "source_location": {
+        "column": 7,
+        "file": "t00002.cc",
+        "line": 7,
+        "translation_unit": "t00002.cc"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [
+        {
+          "access": "public",
+          "id": "7901073918843258388",
+          "is_virtual": false
+        }
+      ],
+      "comment": {
+        "brief": [
+          " This is class B\n"
+        ]
+      },
+      "display_name": "B",
+      "id": "4753875669499007606",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "foo_a",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "foo_a",
+          "parameters": [],
+          "source_location": {
+            "column": 18,
+            "file": "t00002.cc",
+            "line": 18,
+            "translation_unit": "t00002.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        }
+      ],
+      "name": "B",
+      "namespace": "clanguml::t00002",
+      "source_location": {
+        "column": 7,
+        "file": "t00002.cc",
+        "line": 16,
+        "translation_unit": "t00002.cc"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [
+        {
+          "access": "public",
+          "id": "7901073918843258388",
+          "is_virtual": false
+        }
+      ],
+      "comment": {
+        "brief": [
+          " This is class C - class C has a long comment\n"
+        ]
+      },
+      "display_name": "C",
+      "id": "9139995436788700062",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "foo_c",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "foo_c",
+          "parameters": [],
+          "source_location": {
+            "column": 18,
+            "file": "t00002.cc",
+            "line": 30,
+            "translation_unit": "t00002.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        }
+      ],
+      "name": "C",
+      "namespace": "clanguml::t00002",
+      "source_location": {
+        "column": 7,
+        "file": "t00002.cc",
+        "line": 27,
+        "translation_unit": "t00002.cc"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [
+        {
+          "access": "public",
+          "id": "4753875669499007606",
+          "is_virtual": false
+        },
+        {
+          "access": "public",
+          "id": "9139995436788700062",
+          "is_virtual": false
+        }
+      ],
+      "display_name": "D",
+      "id": "487603959843317797",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [
+        {
+          "access": "private",
+          "is_static": false,
+          "name": "as",
+          "source_location": {
+            "column": 22,
+            "file": "t00002.cc",
+            "line": 58,
+            "translation_unit": "t00002.cc"
+          },
+          "type": "std::vector<A *>"
+        }
+      ],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "foo_a",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "foo_a",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        },
+        {
+          "access": "public",
+          "display_name": "foo_c",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "foo_c",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        }
+      ],
+      "name": "D",
+      "namespace": "clanguml::t00002",
+      "source_location": {
+        "column": 7,
+        "file": "t00002.cc",
+        "line": 36,
+        "translation_unit": "t00002.cc"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [
+        {
+          "access": "public",
+          "id": "4753875669499007606",
+          "is_virtual": true
+        },
+        {
+          "access": "public",
+          "id": "9139995436788700062",
+          "is_virtual": true
+        }
+      ],
+      "display_name": "E",
+      "id": "17903093362471729766",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [
+        {
+          "access": "private",
+          "is_static": false,
+          "name": "as",
+          "source_location": {
+            "column": 22,
+            "file": "t00002.cc",
+            "line": 58,
+            "translation_unit": "t00002.cc"
+          },
+          "type": "std::vector<A *>"
+        }
+      ],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "foo_a",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "foo_a",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        },
+        {
+          "access": "public",
+          "display_name": "foo_c",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "foo_c",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        }
+      ],
+      "name": "E",
+      "namespace": "clanguml::t00002",
+      "source_location": {
+        "column": 7,
+        "file": "t00002.cc",
+        "line": 61,
+        "translation_unit": "t00002.cc"
+      },
+      "template_parameters": [],
+      "type": "class"
+    }
+  ],
+  "name": "t00002_class",
+  "package_type": "namespace",
+  "relationships": [
+    {
+      "access": "public",
+      "destination": "7901073918843258388",
+      "source": "4753875669499007606",
+      "type": "extension"
+    },
+    {
+      "access": "public",
+      "destination": "7901073918843258388",
+      "source": "9139995436788700062",
+      "type": "extension"
+    },
+    {
+      "access": "private",
+      "destination": "7901073918843258388",
+      "label": "as",
+      "source": "487603959843317797",
+      "type": "association"
+    },
+    {
+      "access": "public",
+      "destination": "4753875669499007606",
+      "source": "487603959843317797",
+      "type": "extension"
+    },
+    {
+      "access": "public",
+      "destination": "9139995436788700062",
+      "source": "487603959843317797",
+      "type": "extension"
+    },
+    {
+      "access": "private",
+      "destination": "7901073918843258388",
+      "label": "as",
+      "source": "17903093362471729766",
+      "type": "association"
+    },
+    {
+      "access": "public",
+      "destination": "4753875669499007606",
+      "source": "17903093362471729766",
+      "type": "extension"
+    },
+    {
+      "access": "public",
+      "destination": "9139995436788700062",
+      "source": "17903093362471729766",
+      "type": "extension"
+    }
+  ],
+  "title": "Basic class diagram example",
+  "using_namespace": "clanguml::t00002"
+}

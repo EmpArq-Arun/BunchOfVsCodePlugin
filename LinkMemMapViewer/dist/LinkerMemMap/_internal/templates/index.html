@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linker MemMap Viewer</title>
+<script>
+function stopServer(){
+  if(navigator.sendBeacon){navigator.sendBeacon('/shutdown');}
+  else{try{var x=new XMLHttpRequest();x.open('POST','/shutdown',false);x.send();}catch(e){}}
+}
+window.addEventListener('beforeunload',stopServer);
+</script>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════════════════════════ -->
+<header>
+  <div class="hd-left">
+    <h1>Linker <em>MemMap</em></h1>
+    <span class="hchip hchip-ld"  id="fchip"      style="display:none">📋 <span id="fname"></span></span>
+    <span class="hchip hchip-elf" id="echip"      style="display:none">⚙ <span id="ename"></span></span>
+    <span class="hchip hchip-map" id="mchip"      style="display:none">🗺 <span id="mname"></span></span>
+    <span class="hchip hchip-grn" id="entry-chip" style="display:none">⚡ <span id="esym"></span></span>
+    <span class="hchip hchip-grn" id="sym-chip"   style="display:none"><span id="symcount"></span> symbols</span>
+  </div>
+  <div class="hd-right">
+    <button id="theme-btn" onclick="toggleTheme()" title="Toggle light/dark">🌙</button>
+    <button class="hbtn" id="feat-toggle-btn" onclick="toggleFeatures()" title="Features">⚙ Features</button>
+    <button class="hbtn sidebar-toggle" onclick="toggleSidebar()" title="Toggle panel">☰</button>
+  </div>
+</header>
+
+<!-- ═══ LAYOUT ═══════════════════════════════════════════════════════════ -->
+<div class="layout">
+
+<!-- ═══ SIDEBAR ══════════════════════════════════════════════════════════ -->
+<div class="sidebar" id="sidebar">
+
+  <!-- ── Settings panel (collapsible) ──────────────────────────────────── -->
+  <div class="sb-panel open" id="settings-panel">
+    <button class="sb-panel-header" id="settings-toggle-btn"
+      onclick="toggleSettingsPanel()"
+      title="Target platform and toolchain settings">
+      <span class="sb-panel-icon">⚙</span>
+      <span class="sb-panel-title">Target &amp; Toolchain</span>
+      <span class="sb-panel-caret" id="settings-caret">▾</span>
+    </button>
+    <div class="sb-panel-body" id="settings-body">
+
+      <!-- Target chips -->
+      <div class="sb-group">
+        <div class="sb-label">Platform</div>
+        <div class="tgt-grid">
+          <button id="tgt-arm" class="tgt-btn active"
+            onclick="selectTarget('arm')"
+            title="NXP S32K, STM32, LPC — arm-none-eabi">
+            <span>⚙</span><br>
+            <strong>ARM</strong><br>
+            <small>Cortex-M</small>
+          </button>
+          <button id="tgt-esp32-xtensa" class="tgt-btn"
+            onclick="selectTarget('esp32-xtensa')"
+            title="ESP32 / S2 / S3 — xtensa-esp-elf">
+            <span>📡</span><br>
+            <strong>Xtensa</strong><br>
+            <small>ESP32 · S2 · S3</small>
+          </button>
+          <button id="tgt-esp32-riscv" class="tgt-btn"
+            onclick="selectTarget('esp32-riscv')"
+            title="ESP32-C3/C6/H2/P4 — riscv32-esp-elf">
+            <span>🖥</span><br>
+            <strong>RISC-V</strong><br>
+            <small>C3 · C6 · H2</small>          </button>
+          <button id="tgt-x86-64-linux" class="tgt-btn"
+            onclick="selectTarget('x86-64-linux')"
+            title="Native Linux x86-64 — gcc/g++/clang (no prefix needed)">
+            <span>🐧</span><br>
+            <strong>x86-64</strong><br>
+            <small>Linux native</small>
+          </button>
+          <button id="tgt-x86-32-linux" class="tgt-btn"
+            onclick="selectTarget('x86-32-linux')"
+            title="Native Linux i386 — gcc/g++/clang (no prefix needed)">
+            <span>🐧</span><br>
+            <strong>x86-32</strong><br>
+            <small>Linux i386</small>
+          </button>
+        </div>
+      </div>
+
+      <!-- Toolchain mode -->
+      <div class="sb-group">
+        <div class="sb-label">Toolchain</div>
+        <div class="tc-mode">
+          <label class="tc-radio">
+            <input type="radio" name="tc-mode" id="tc-path" value="path" checked
+              onchange="applyToolchainMode()">
+            On PATH
+          </label>
+          <label class="tc-radio">
+            <input type="radio" name="tc-mode" id="tc-prefix" value="prefix"
+              onchange="applyToolchainMode()">
+            Custom prefix
+          </label>
+        </div>
+
+        <!-- PATH mode — shows resolved names + optional directory -->
+        <div id="tc-auto-row">
+          <div class="tc-resolved" id="tc-auto-label">arm-none-eabi-{nm…}</div>
+          <div class="sb-sublabel" style="margin-top:5px">Optional directory</div>
+          <input id="t-path-dir" class="sb-input"
+            placeholder="e.g. D:\NXP\S32DS\bin or /opt/gcc/bin"
+            oninput="applyPathDir()"
+            onkeydown="if(event.key==='Enter')event.preventDefault()"
+            title="Directory containing toolchain binaries">
+        </div>
+
+        <!-- Custom prefix mode -->
+        <div id="tc-prefix-row" style="display:none">
+          <input id="t-prefix" class="sb-input"
+            placeholder="e.g. arm-none-eabi-  or  D:\NXP\bin\arm-none-eabi-"
+            oninput="applyPrefixToFields()">
+          <div class="sb-hint" id="tc-prefix-hint-wrap">
+            Example: <code id="tc-prefix-hint">arm-none-eabi-</code>
+          </div>
+        </div>
+
+        <!-- Hidden individual fields (always in DOM) -->
+        <div id="tc-fields-detail" style="display:none">
+          <div class="tool-row"><label>nm</label>        <input id="t-nm"></div>
+          <div class="tool-row"><label>readelf</label>   <input id="t-re"></div>
+          <div class="tool-row"><label>size</label>      <input id="t-sz"></div>
+          <div class="tool-row"><label>addr2line</label> <input id="t-a2l"></div>
+          <div class="tool-row"><label>objdump</label>   <input id="t-objdump"></div>
+        </div>
+        <button class="sb-link" onclick="toggleToolDetail()">
+          <span id="tc-detail-label">▸ Show individual tools</span>
+        </button>
+      </div>
+
+      <!-- Analyse button -->
+      <button class="run-btn" id="analyse-btn" onclick="runAnalysis()" disabled>
+        ▶ Analyse ELF
+      </button>
+      <div id="tool-status" class="tool-status"></div>
+
+      <!-- Auto-close option -->
+      <label class="sb-check">
+        <input type="checkbox" id="settings-autoclose" checked
+          onchange="localStorage.setItem('lmv_settings_autoclose', this.checked?'1':'0')">
+        Auto-hide when all files loaded
+      </label>
+    </div><!-- /settings-body -->
+  </div><!-- /settings-panel -->
+
+  <!-- ── File drops ────────────────────────────────────────────────────── -->
+  <div class="sb-sec">
+    <div class="sb-sec-hdr">
+      <span class="req-dot ld">LD</span>
+      <span class="sb-sec-label">Linker Script</span>
+    </div>
+    <input type="file" accept=".ld,.lds,.x" id="ld-fi" style="display:none" multiple>
+    <div class="drop-area" id="ld-drop">
+      <div class="dico">📋</div>
+      <p>Drop .ld file(s) or click<br><span class="drop-sub">memory.ld + sections.ld OK</span></p>
+    </div>
+    <div class="fname" id="ld-name" style="display:none"></div>
+    <div class="scan-row">
+      <input id="ld-scan-path" class="sb-input scan-input"
+        placeholder="Scan build dir for .ld files…"
+        onkeydown="if(event.key==='Enter')scanLdFolder()">
+      <button class="scan-btn" onclick="scanLdFolder()">🔍</button>
+    </div>
+    <div id="ld-scan-results" style="display:none;margin-top:4px"></div>
+  </div>
+
+  <div class="sb-sec">
+    <div class="sb-sec-hdr">
+      <span class="req-dot elf">ELF</span>
+      <span class="sb-sec-label">Binary</span>
+    </div>
+    <input type="file" id="elf-fi" style="display:none">
+    <div class="drop-area" id="elf-drop">
+      <div class="dico">⚙</div>
+      <p>Drop .elf / .axf<br><span class="drop-sub">symbols · disasm · addr2line</span></p>
+    </div>
+    <div class="fname" id="elf-name" style="display:none"></div>
+    <progress id="elf-prog" max="100"></progress>
+  </div>
+
+  <div class="sb-sec">
+    <div class="sb-sec-hdr">
+      <span class="req-dot map">MAP</span>
+      <span class="sb-sec-label">Linker Map</span>
+    </div>
+    <input type="file" accept=".map" id="map-fi" style="display:none">
+    <div class="drop-area" id="map-drop">
+      <div class="dico">🗺</div>
+      <p>Drop .map file<br><span class="drop-sub">per-file flash · RAM · dead code</span></p>
+    </div>
+    <div class="fname" id="map-name" style="display:none"></div>
+  </div>
+
+  <!-- Features panel -->
+  <div class="sb-sec feat-panel" id="feat-panel" style="display:none">
+    <div class="sb-sec-hdr" style="margin-bottom:6px">⚙ Features</div>
+    <div id="feat-groups"></div>
+  </div>
+
+  <!-- Resource monitor -->
+  <div class="sb-sec res-panel" id="res-panel">
+    <div class="sb-sec-hdr res-header" style="cursor:pointer" onclick="toggleResMonitor()">
+      📊 Monitor <span id="res-toggle-icon" style="margin-left:auto">▸</span>
+    </div>
+    <div id="res-body" style="display:none">
+      <div id="res-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:8px 0"></div>
+      <div style="position:relative;height:48px;background:var(--s2);border:1px solid var(--bdr);border-radius:4px;overflow:hidden;margin-bottom:6px">
+        <canvas id="res-chart" height="48" style="width:100%;display:block"></canvas>
+        <div style="position:absolute;top:2px;left:4px;font-size:9px;color:var(--dim)">RAM · CPU</div>
+      </div>
+      <div id="res-gc" style="font-size:10px;color:var(--dim);margin-bottom:6px"></div>
+      <div style="display:flex;gap:4px">
+        <button id="res-start-btn" class="run-btn" style="margin:0;padding:5px;font-size:10px;flex:1"
+          onclick="startResMonitor()">▶ Start</button>
+        <button id="res-stop-btn" class="hbtn" style="flex:1;font-size:10px" disabled
+          onclick="stopResMonitor()">⏹ Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project: save/load/share -->
+  <div class="sb-sec" id="project-panel" style="border-top:2px solid var(--bdr2)">
+    <div class="sb-sec-hdr">📁 Project</div>
+    <div style="display:flex;flex-direction:column;gap:5px">
+      <button class="hbtn" style="width:100%;font-size:11px;text-align:left" onclick="saveProject()" title="Choose filename and location, then save all settings">
+        💾 Save project…
+      </button>
+      <button class="hbtn" style="width:100%;font-size:11px;text-align:left" onclick="loadProjectFile()" title="Load a previously saved project file">
+        📂 Load project…
+      </button>
+    </div>
+    <input type="file" id="project-fi" accept=".lmvproj,.json" style="display:none"
+      onchange="onProjectFileLoad(this)">
+  </div>
+
+  <!-- Stop server — pinned at bottom -->
+  <div class="stop-wrap">
+    <button id="stop-server-btn"
+      onclick="if(confirm('Stop the Linker MemMap server and close?')){stopServer();setTimeout(()=>window.close(),300)}"
+      title="Shut down the background Python server">
+      ✕ Stop Server
+    </button>
+  </div>
+
+</div><!-- /sidebar -->
+
+<!-- ═══ MAIN ══════════════════════════════════════════════════════════════ -->
+<div class="main" id="main">
+
+  <!-- Welcome -->
+  <div class="empty" id="welcome">
+    <div class="eico">🗂️</div>
+    <h3>Drop any combination of files to begin</h3>
+    <p>
+      <span class="req-dot ld" style="vertical-align:middle;margin-right:4px">LD</span>
+      <strong>.ld</strong> — memory map, section layout, region sizes<br>
+      <span class="req-dot elf" style="vertical-align:middle;margin-right:4px;margin-top:4px">ELF</span>
+      <strong>.elf</strong> — symbols, sizes, DMA warnings, addr→line, disassembly<br>
+      <span class="req-dot map" style="vertical-align:middle;margin-right:4px;margin-top:4px">MAP</span>
+      <strong>.map</strong> — per-file flash/RAM, contributors, GC'd sections<br><br>
+      Each file is optional — any combination works.
+      Use ⚙ Target &amp; Toolchain panel to set your chipset.<br><br>
+      <button class="hbtn" style="font-size:11px" onclick="showDebugDirect()"
+        title="Open Debug tab without loading files">🐛 Open Debug console</button>
+    </p>
+  </div>
+
+  <!-- App -->
+  <div id="app" style="display:none">
+    <div class="tabs" id="tabs">
+      <div class="tab act" data-pane="map"   onclick="tab(this)">🗺 Memory Map</div>
+      <div class="tab"     data-pane="sec"   onclick="tab(this)">📦 Sections</div>
+      <div class="tab"     data-pane="sym"   onclick="tab(this)">🔍 Symbols</div>
+      <div class="tab"     data-pane="warn"  onclick="tab(this)">⚠ Warnings <span class="badge" id="warn-badge" style="display:none"></span></div>
+      <div class="tab"     data-pane="bloat" onclick="tab(this)">💾 Bloat</div>
+      <div class="tab"     data-pane="start" onclick="tab(this)">🚀 Startup</div>
+      <div class="tab"     data-pane="map2"  onclick="tab(this)">📂 Map File</div>
+      <div class="tab"     data-pane="dead"  onclick="tab(this)">🗑 Dead Code</div>
+      <div class="tab"     data-pane="a2l"   onclick="tab(this)">📍 Inspector</div>
+      <div class="tab"     data-pane="stack" onclick="tab(this)">🥞 Stack</div>
+      <div class="tab"     data-pane="dbg"   onclick="tab(this)">🐛 Debug</div>
+      <div class="tab"     data-pane="isr"   onclick="tab(this)">⚡ Interrupts <span class="badge" id="isr-badge" style="display:none"></span></div>
+      <div class="tab"     data-pane="cpp"   onclick="tab(this)">🔷 C++</div>
+    </div>
+
+    <!-- MEMORY MAP -->
+    <div class="pane act" id="pane-map">
+      <div id="mc"><svg id="map-svg"></svg></div>
+      <div id="leg"></div>
+      <div class="card-wrap" style="margin-top:12px">
+        <div class="tbl-hdr">Region Summary</div>
+        <table><thead><tr>
+          <th>Region</th><th>Origin</th><th>End</th><th>Size</th>
+          <th>Type</th><th>Used</th><th>Free</th><th>Fill</th><th>Sections</th>
+        </tr></thead><tbody id="rtb"></tbody></table>
+      </div>
+    </div>
+
+    <!-- SECTIONS -->
+    <div class="pane" id="pane-sec">
+      <div class="filter-bar">
+        <input class="search" id="sec-q" placeholder="Filter sections…" oninput="filterSecs()">
+        <select class="fsel" id="sec-type" onchange="filterSecs()"><option value="">All types</option></select>
+        <span class="cnt" id="sec-cnt"></span>
+      </div>
+      <div class="sec-grid" id="sec-grid"></div>
+    </div>
+
+    <!-- SYMBOLS -->
+    <div class="pane" id="pane-sym">
+      <div class="empty" id="sym-empty">
+        <div class="eico">⚙️</div><h3>Load an ELF to explore symbols</h3>
+        <p>Drop a .elf / .axf then click <strong>Analyse ELF</strong>.</p>
+      </div>
+      <div id="sym-content" style="display:none">
+        <div class="filter-bar">
+          <input class="search" id="sym-q" placeholder="Search symbols…" oninput="filterSyms()">
+          <select class="fsel" id="sym-t" onchange="filterSyms()">
+            <option value="">All types</option>
+            <option value="function">Functions</option>
+            <option value="variable">Variables</option>
+            <option value="constant">Constants</option>
+            <option value="weak">Weak</option>
+            <option value="undefined">Undefined</option>
+          </select>
+          <select class="fsel" id="sym-s" onchange="filterSyms()"><option value="">All sections</option></select>
+          <select class="fsel" id="sym-f" onchange="filterSyms()"><option value="">All files</option></select>
+          <select class="fsel" id="sym-g" onchange="filterSyms()">
+            <option value="">Global+Local</option>
+            <option value="1">Global only</option>
+            <option value="0">Local only</option>
+          </select>
+          <span class="cnt" id="sym-cnt"></span>
+          <button class="hbtn reset-btn" onclick="resetSymFilters()" title="Clear all filters">↺ Reset</button>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">Symbols
+            <div class="tbl-actions"><button class="hbtn" onclick="exportSymbols()">⬇ CSV</button></div>
+          </div>
+          <table id="sym-tbl"><thead><tr>
+            <th onclick="sortSym('name')">Symbol</th>
+            <th onclick="sortSym('addr')">Start</th>
+            <th>End</th>
+            <th onclick="sortSym('size')">Size</th>
+            <th onclick="sortSym('type')">Type</th>
+            <th onclick="sortSym('section')">Section</th>
+            <th onclick="sortSym('file')">File</th>
+          </tr></thead><tbody id="sym-body"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- WARNINGS -->
+    <div class="pane" id="pane-warn">
+      <div class="filter-bar">
+        <select class="fsel" id="warn-lvl" onchange="filterWarns()">
+          <option value="">All levels</option>
+          <option value="error">Errors</option>
+          <option value="warn">Warnings</option>
+          <option value="info">Info</option>
+        </select>
+        <select class="fsel" id="warn-cat" onchange="filterWarns()"><option value="">All categories</option></select>
+        <span class="cnt" id="warn-cnt"></span>
+      </div>
+      <div class="warn-list" id="warn-list"></div>
+    </div>
+
+    <!-- BLOAT -->
+    <div class="pane" id="pane-bloat">
+      <div class="empty" id="bloat-empty">
+        <div class="eico">💾</div><h3>Load ELF or Map for bloat analysis</h3>
+        <p>Shows largest functions, variables, and per-library flash usage.</p>
+      </div>
+      <div id="bloat-content" style="display:none">
+        <div class="sg" id="bloat-stats"></div>
+        <div id="bloat-treemap-wrap" class="card-wrap" style="display:none">
+          <div class="tbl-hdr">Flash by library / object file <span class="sub">(click cell to filter symbols)</span></div>
+          <div class="treemap" id="bloat-treemap" style="padding:12px;min-height:140px"></div>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">Largest functions <span class="sub">click row for details</span></div>
+          <table><thead><tr>
+            <th onclick="sortBloat('fn','name')">Function</th>
+            <th onclick="sortBloat('fn','size')">Size</th>
+            <th onclick="sortBloat('fn','section')">Section</th>
+            <th onclick="sortBloat('fn','file')">File</th>
+          </tr></thead><tbody id="bloat-fn"></tbody></table>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">Largest variables <span class="sub">click row for details</span></div>
+          <table><thead><tr>
+            <th onclick="sortBloat('var','name')">Variable</th>
+            <th onclick="sortBloat('var','size')">Size</th>
+            <th onclick="sortBloat('var','section')">Section</th>
+            <th onclick="sortBloat('var','file')">File</th>
+          </tr></thead><tbody id="bloat-var"></tbody></table>
+        </div>
+        <div class="card-wrap" id="dup-card" style="display:none">
+          <div class="tbl-hdr">Duplicate symbol names <span class="sub">same name, multiple object files</span></div>
+          <table><thead><tr><th>Symbol</th><th>Count</th><th>Files</th></tr></thead>
+          <tbody id="bloat-dup"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- STARTUP -->
+    <div class="pane" id="pane-start">
+      <div class="sg" id="start-stats"></div>
+      <div class="card-wrap">
+        <div class="tbl-hdr">Copy table — what startup code does before main()</div>
+        <div style="padding:12px" id="start-rows"></div>
+      </div>
+    </div>
+
+    <!-- MAP FILE -->
+    <div class="pane" id="pane-map2">
+      <div class="empty" id="map2-empty">
+        <div class="eico">📂</div><h3>Drop a .map file to see per-file breakdown</h3>
+        <p>Shows which .o/.a files contribute to each section,<br>GC'd sections and library breakdown.</p>
+      </div>
+      <div id="map2-content" style="display:none">
+        <div class="sg" id="map2-stats"></div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">Flash + RAM by object file
+            <span class="sub">click row to filter symbols</span>
+            <div class="tbl-actions"><button class="hbtn" onclick="exportMapCSV()">⬇ CSV</button></div>
+          </div>
+          <div class="filter-bar" style="padding:8px 12px 0;margin:0">
+            <input class="search" id="map2-q" placeholder="Filter files…" oninput="filterMapFiles()">
+            <select class="fsel" id="map2-lib" onchange="filterMapFiles()"><option value="">All libraries</option></select>
+            <span class="cnt" id="map2-cnt"></span>
+            <button class="hbtn reset-btn" onclick="resetMapFilters()" title="Clear filters">↺ Reset</button>
+          </div>
+          <table><thead><tr>
+            <th onclick="sortMap('file')">File</th>
+            <th onclick="sortMap('flash')">Flash</th>
+            <th onclick="sortMap('ram')">RAM</th>
+            <th onclick="sortMap('total')">Total</th>
+            <th>Bar</th><th>Symbols</th>
+          </tr></thead><tbody id="map2-tbody"></tbody></table>
+        </div>
+        <div class="card-wrap" id="sec-contrib-card">
+          <div class="tbl-hdr">Section contributors <span class="sub">which files fill each section</span></div>
+          <table><thead><tr>
+            <th>Section</th><th>Total size</th><th>Top contributors</th>
+          </tr></thead><tbody id="sec-contrib-body"></tbody></table>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">Discarded / GC'd sections <span class="sub">removed by --gc-sections</span></div>
+          <table><thead><tr><th>Section</th><th>File</th></tr></thead>
+          <tbody id="map2-disc"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEAD CODE -->
+    <div class="pane" id="pane-dead">
+      <div class="empty" id="dead-empty">
+        <div class="eico">🗑</div><h3>Load a .map file to see dead code analysis</h3>
+        <p>Requires <code>--gc-sections</code> linker flag.</p>
+      </div>
+      <div id="dead-content" style="display:none">
+        <div class="sg" id="dead-stats"></div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">GC'd sections by file <span class="sub">click to see what was removed</span></div>
+          <table><thead><tr>
+            <th onclick="sortDead('file')">File</th>
+            <th onclick="sortDead('count')">Removed</th>
+            <th onclick="sortDead('size')">Bytes saved</th>
+          </tr></thead><tbody id="dead-tbody"></tbody></table>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">All discarded sections</div>
+          <div class="filter-bar" style="padding:8px 12px 0;margin:0">
+            <input class="search" id="dead-q" placeholder="Filter…" oninput="filterDead()">
+          </div>
+          <table><thead><tr><th>Section</th><th>File</th></tr></thead>
+          <tbody id="dead-all"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADDRESS INSPECTOR -->
+    <div class="pane" id="pane-a2l">
+      <div class="addr-inspector">
+        <div class="ai-input-row">
+          <div class="ai-input-wrap">
+            <span class="ai-prefix">0x</span>
+            <input id="a2l-addr" class="ai-input"
+              placeholder="address — e.g. 00401234 or 0x20400080"
+              onkeydown="if(event.key==='Enter')inspectAddress()"
+              oninput="onAddrInput(this)">
+          </div>
+          <button class="run-btn" style="width:auto;padding:8px 20px;margin:0" onclick="inspectAddress()">🔍 Inspect</button>
+          <button class="hbtn" onclick="clearInspector()">✕</button>
+        </div>
+        <p class="ai-hint">Paste any hex address from a crash log, BFAR, PC, or symbol table.</p>
+
+        <div id="ai-results" style="display:none">
+          <progress id="ai-progress" max="100" style="display:none;width:100%;height:3px;margin-bottom:8px;border-radius:2px;border:none;background:var(--s3)"></progress>
+          <div class="ai-banner" id="ai-banner"></div>
+          <div class="ai-grid">
+            <div class="ai-card" id="ai-sym-card">
+              <div class="ai-card-hdr"><span class="ai-card-icon">⚡</span><span class="ai-card-title">Symbol <span class="ai-src-badge elf">ELF</span></span></div>
+              <div class="ai-card-body" id="ai-sym-body"><span class="ai-na">Load ELF and click Analyse ELF</span></div>
+            </div>
+            <div class="ai-card" id="ai-sec-card">
+              <div class="ai-card-hdr"><span class="ai-card-icon">📦</span><span class="ai-card-title">Section &amp; Region <span class="ai-src-badge ld">LD</span></span></div>
+              <div class="ai-card-body" id="ai-sec-body"><span class="ai-na">Load a .ld file</span></div>
+            </div>
+            <div class="ai-card" id="ai-map-card">
+              <div class="ai-card-hdr"><span class="ai-card-icon">📂</span><span class="ai-card-title">Object file <span class="ai-src-badge map">MAP</span></span></div>
+              <div class="ai-card-body" id="ai-map-body"><span class="ai-na">Load a .map file</span></div>
+            </div>
+            <div class="ai-card" id="ai-a2l-card">
+              <div class="ai-card-hdr"><span class="ai-card-icon">📍</span><span class="ai-card-title">Source line <span class="ai-src-badge elf">addr2line</span></span></div>
+              <div class="ai-card-body" id="ai-a2l-body"><span class="ai-na">ELF needed</span></div>
+            </div>
+          </div>
+          <div class="ai-offset-bar" id="ai-offset-bar" style="display:none">
+            <div class="ai-offset-track"><div class="ai-offset-fill" id="ai-offset-fill"></div><div class="ai-offset-marker" id="ai-offset-marker"></div></div>
+            <div class="ai-offset-labels" id="ai-offset-labels"></div>
+          </div>
+        </div>
+
+        <div id="ai-disasm-panel" style="display:none;margin-top:12px">
+          <div class="card-wrap">
+            <div class="tbl-hdr">💻 Disassembly
+              <span class="sub" id="ai-disasm-func"></span>
+              <div class="tbl-actions" style="gap:6px;align-items:center;flex-wrap:wrap">
+                <label style="font-size:11px;color:var(--dim)">Context:</label>
+                <select id="ai-ctx-lines" class="fsel" style="width:60px" onchange="rerunDisasm()">
+                  <option value="5">5</option><option value="10" selected>10</option>
+                  <option value="20">20</option><option value="50">50</option><option value="0">All</option>
+                </select>
+                <button class="hbtn" onclick="toggleDisasmFull()"><span id="ai-disasm-toggle-lbl">Full fn</span></button>
+                <button class="hbtn" onclick="showRawObjdump()">Raw</button>
+                <button class="hbtn" id="ai-src-reopen" style="display:none;color:var(--ora)" onclick="openSrcBar()">📂 Source</button>
+                <button class="hbtn" onclick="copyDisasm()">📋 Copy</button>
+              </div>
+            </div>
+            <div id="ai-src-bar" style="display:none;border-bottom:1px solid var(--bdr)">
+              <div style="padding:7px 14px;background:#100c05;border-bottom:1px solid #5a3d1a;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                <span style="font-size:11px;color:var(--ora)">⚠ Source not found</span>
+                <span style="font-size:11px;color:var(--dim)">— provide source root:</span>
+                <div class="tbl-actions" style="margin-left:auto"><button class="hbtn" onclick="closeSrcBar()">✕</button></div>
+              </div>
+              <div style="padding:8px 14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <input id="ai-src-dir" class="search" style="flex:1;min-width:200px;font-size:11px"
+                  placeholder="e.g. C:\S32DS\project\src" onkeydown="if(event.key==='Enter')scanSourceDir()">
+                <button class="hbtn" onclick="scanSourceDir()">🔍 Scan</button>
+                <span style="font-size:11px;color:var(--dim)">or drop:</span>
+                <input type="file" id="ai-src-file-picker" accept=".c,.cpp,.cxx,.cc,.h,.hpp,.s,.asm" style="display:none" multiple onchange="onSourceFilePick(this.files)">
+                <div class="drop-area" id="ai-src-drop" style="min-height:32px;padding:5px 10px;font-size:11px;display:inline-flex;align-items:center;gap:5px;cursor:pointer">
+                  <span>📂</span><span id="ai-src-drop-label">Drop .c/.h</span>
+                </div>
+                <span id="ai-src-status" style="font-size:11px;color:var(--dim)"></span>
+              </div>
+              <div id="ai-src-loaded" style="display:none;padding:4px 14px 8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center">
+                <span style="font-size:10px;color:var(--dim)">Loaded:</span>
+                <div id="ai-src-chips" style="display:flex;flex-wrap:wrap;gap:3px"></div>
+                <button class="hbtn" style="font-size:10px" onclick="clearSourceFiles()">Clear</button>
+              </div>
+              <div id="ai-src-picker" style="display:none;padding:10px 14px;border-top:1px solid var(--bdr)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+                  <span style="font-size:12px;color:var(--txt)" id="ai-src-picker-title"></span>
+                  <div style="display:flex;gap:6px">
+                    <button class="hbtn" onclick="srcPickerAll()">All</button>
+                    <button class="hbtn" onclick="srcPickerNone()">None</button>
+                    <button class="hbtn" onclick="srcPickerExt('.c')">.c</button>
+                    <button class="hbtn" onclick="srcPickerExt('.h')">.h</button>
+                    <button class="run-btn" style="width:auto;padding:5px 14px;margin:0" onclick="loadSelectedSource()">▶ Load</button>
+                  </div>
+                </div>
+                <div id="ai-src-picker-list" style="max-height:200px;overflow-y:auto;background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);padding:6px"></div>
+              </div>
+              <div style="padding:6px 14px;border-top:1px solid var(--bdr);display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <label style="font-size:11px;color:var(--dim)">Context lines:</label>
+                <select id="ai-src-ctx" class="fsel" style="width:70px" onchange="injectUserSourceIntoDisasm()">
+                  <option value="3">3</option><option value="5" selected>5</option>
+                  <option value="10">10</option><option value="20">20</option><option value="50">50</option><option value="0">All</option>
+                </select>
+              </div>
+            </div>
+            <div id="ai-reg-panel" style="display:none;padding:8px 14px;background:var(--s2);border-bottom:1px solid var(--bdr)">
+              <div style="font-size:11px;color:var(--dim);margin-bottom:6px">CPU registers from fault handler
+                <button class="hbtn" style="margin-left:8px;font-size:10px" onclick="toggleRegPanel()">Hide</button>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <div style="display:flex;align-items:center;gap:4px"><label style="font-size:10px;color:var(--dim);width:32px">PC</label><input class="search" id="reg-pc" placeholder="0x00401234" style="width:110px;font-size:11px" oninput="updateRegAnalysis()"></div>
+                <div style="display:flex;align-items:center;gap:4px"><label style="font-size:10px;color:var(--dim);width:32px">LR</label><input class="search" id="reg-lr" placeholder="0xFFFFFFF9" style="width:110px;font-size:11px" oninput="updateRegAnalysis()"></div>
+                <div style="display:flex;align-items:center;gap:4px"><label style="font-size:10px;color:var(--dim);width:32px">SP</label><input class="search" id="reg-sp" placeholder="0x20007E00" style="width:110px;font-size:11px" oninput="updateRegAnalysis()"></div>
+                <div style="display:flex;align-items:center;gap:4px"><label style="font-size:10px;color:var(--dim);width:32px">BFAR</label><input class="search" id="reg-bfar" placeholder="0x00000000" style="width:110px;font-size:11px" oninput="updateRegAnalysis()"></div>
+                <div style="display:flex;align-items:center;gap:4px"><label style="font-size:10px;color:var(--dim);width:32px">CFSR</label><input class="search" id="reg-cfsr" placeholder="0x00000200" style="width:110px;font-size:11px" oninput="updateRegAnalysis()"></div>
+              </div>
+              <div id="reg-analysis-out" style="margin-top:8px;font-size:11px;color:var(--dim);line-height:1.6"></div>
+            </div>
+            <div id="ai-fault-banner" style="display:none;padding:12px 16px;border-bottom:1px solid var(--bdr)"></div>
+            <div id="ai-raw-modal" style="display:none;position:absolute;inset:0;z-index:100;background:var(--bg);overflow:auto;padding:12px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span style="font-size:12px;color:var(--acc)">Raw objdump output</span>
+                <button class="hbtn" onclick="$('ai-raw-modal').style.display='none'">✕ Close</button>
+              </div>
+              <pre id="ai-raw-out" style="font-size:11px;color:var(--dim);white-space:pre;overflow-x:auto"></pre>
+            </div>
+            <div id="ai-disasm-body" style="font:12px var(--mono);padding:0;overflow-x:auto;max-height:60vh;overflow-y:auto;background:var(--bg);position:relative">
+              <div style="padding:14px;color:var(--dim)">Click Inspect with an ELF loaded to see disassembly.</div>
+            </div>
+            <div id="ai-disasm-footer" style="padding:8px 14px;font-size:11px;color:var(--dim);border-top:1px solid var(--bdr);display:none"></div>
+          </div>
+        </div>
+
+        <div class="card-wrap" style="margin-top:14px">
+          <div class="tbl-hdr">Recent inspections
+            <button class="hbtn" style="margin-left:auto;font-size:10px" onclick="clearHistory()">Clear</button>
+          </div>
+          <table><thead><tr><th>Address</th><th>Symbol</th><th>Section</th><th>Source</th></tr></thead>
+          <tbody id="ai-history"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- STACK DEPTH -->
+    <div class="pane" id="pane-stack">
+      <div class="card-wrap" style="margin-bottom:12px" id="stack-setup-card">
+        <div class="tbl-hdr">
+          ⚙ Compiler flags for stack analysis
+          <button class="hbtn" style="margin-left:auto;font-size:10px" onclick="toggleStackSetup()">
+            <span id="stack-setup-toggle">▸ Show flags</span>
+          </button>
+        </div>
+        <div id="stack-setup-body" style="display:none;padding:12px 16px;font-size:12px;line-height:1.9">
+          <div style="margin-bottom:10px;color:var(--dim);font-size:11px">
+            Add these flags to your project. In S32DS: Project → Properties → C/C++ Build → Settings → Compiler → Miscellaneous → Other flags
+          </div>
+          <div class="flag-row">
+            <code class="flag-code">-fstack-usage</code>
+            <span class="flag-desc">Generates <strong>.su</strong> files — per-function stack frame size and type (static/dynamic). <em>Required for Level 1 analysis.</em></span>
+          </div>
+          <div class="flag-row">
+            <code class="flag-code">-fcallgraph-info=su,da</code>
+            <span class="flag-desc">Generates <strong>.ci</strong> call-graph files in VCG format — enables worst-case call chain and DFS stack depth. <em>Required for Level 2 analysis.</em></span>
+          </div>
+          <div class="flag-row">
+            <code class="flag-code">-g3</code>
+            <span class="flag-desc">Full DWARF debug info — enables source line interleaving in disassembly, precise addr2line, and crash source resolution. Minimal code-size impact when optimising.</span>
+          </div>
+          <div class="flag-row">
+            <code class="flag-code">-Wstack-usage=256</code>
+            <span class="flag-desc">Build-time warning when any function frame exceeds 256 bytes. Tune the value to match your RTOS task stack size.</span>
+          </div>
+          <div class="flag-row">
+            <code class="flag-code">-fno-inline-small-functions</code>
+            <span class="flag-desc">Prevents the compiler from inlining small functions, making stack analysis more accurate (inlined functions don't appear in .su files).</span>
+          </div>
+          <div class="flag-row">
+            <code class="flag-code">-fno-omit-frame-pointer</code>
+            <span class="flag-desc">Keeps the frame pointer register (r7 on Cortex-M). Improves debuggability; allows stack unwinding from crash handlers even without DWARF.</span>
+          </div>
+          <div style="margin-top:10px;padding:8px 10px;background:var(--s3);border-radius:4px;font-size:11px;color:var(--dim)">
+            💡 All flags can coexist with any optimisation level (-O0, -O1, -Os, -O2). 
+            Start with <code>-fstack-usage -fcallgraph-info=su,da -g3 -Wstack-usage=256</code>.
+          </div>
+        </div>
+      </div>
+      <div class="card-wrap" style="margin-bottom:12px">
+        <div class="tbl-hdr">Load .su files
+          <div class="tbl-actions">
+            <span class="cnt" id="su-file-count" style="margin-right:8px"></span>
+            <button class="hbtn" onclick="clearSUData()" id="su-clear-btn" style="display:none">✕ Clear</button>
+          </div>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:10px">
+          <input type="file" id="su-fi" accept=".su" multiple style="display:none">
+          <div class="drop-area" id="su-drop">
+            <div class="dico">📄</div>
+            <p id="su-drop-label">Drop .su or .ci files (multiple OK) — or click</p>
+          </div>
+          <div style="border-top:1px solid var(--bdr);padding-top:10px">
+            <div style="font-size:11px;color:var(--dim);margin-bottom:6px">Or scan a build directory:</div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="su-path" class="search" style="flex:1" placeholder="e.g. C:\project\Debug" onkeydown="if(event.key==='Enter')scanSUPath()">
+              <button class="hbtn" onclick="scanSUPath()">🔍 Scan</button>
+            </div>
+            <div id="su-scan-status" style="font-size:11px;color:var(--dim);margin-top:5px"></div>
+          </div>
+          <div id="su-picker" style="display:none;border-top:1px solid var(--bdr);padding-top:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+              <span style="font-size:12px;color:var(--txt)" id="su-picker-title"></span>
+              <div style="display:flex;gap:6px">
+                <button class="hbtn" onclick="suPickerSelectAll()">All</button>
+                <button class="hbtn" onclick="suPickerSelectNone()">None</button>
+                <button class="run-btn" style="width:auto;padding:5px 14px;margin:0" onclick="loadSelectedSU()">▶ Load</button>
+              </div>
+            </div>
+            <div id="su-picker-list" style="max-height:220px;overflow-y:auto;background:var(--bg);border:1px solid var(--bdr);border-radius:var(--rad);padding:6px"></div>
+          </div>
+          <div id="su-loaded-list" style="display:none;border-top:1px solid var(--bdr);padding-top:10px">
+            <div style="font-size:11px;color:var(--dim);margin-bottom:5px">Loaded:</div>
+            <div id="su-loaded-items" style="display:flex;flex-wrap:wrap;gap:5px;max-height:100px;overflow-y:auto"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-wrap" id="ci-debug-panel" style="margin-bottom:12px">
+        <div class="tbl-hdr">🔬 .ci format inspector
+          <span class="sub">paste first 30 lines of a .ci file</span>
+          <div class="tbl-actions"><button class="hbtn" onclick="toggleCIDebug()">Show/Hide</button></div>
+        </div>
+        <div id="ci-debug-body" style="display:none;padding:12px 16px">
+          <textarea id="ci-sample-text" style="width:100%;height:120px;background:var(--bg);border:1px solid var(--bdr);border-radius:4px;color:var(--acc);font:11px var(--mono);padding:8px;resize:vertical" placeholder="Paste .ci content here…"></textarea>
+          <button class="hbtn" style="margin-top:6px" onclick="inspectCIFormat()">🔍 Inspect</button>
+          <pre id="ci-debug-out" style="margin-top:8px;font-size:11px;color:var(--dim);white-space:pre-wrap;max-height:200px;overflow-y:auto"></pre>
+        </div>
+      </div>
+      <div id="stack-content" style="display:none">
+        <div class="sg" id="stack-stats"></div>
+        <div class="filter-bar">
+          <input class="search" id="stack-q" placeholder="Filter functions…" oninput="filterStack()">
+          <select class="fsel" id="stack-type" onchange="filterStack()">
+            <option value="">All types</option>
+            <option value="static">Static</option>
+            <option value="dynamic">Dynamic</option>
+            <option value="bounded">Bounded dynamic</option>
+          </select>
+          <span class="cnt" id="stack-cnt"></span>
+          <button class="hbtn reset-btn" onclick="resetStackFilters()" title="Clear filters">↺ Reset</button>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">Function stack usage <span class="sub">-fstack-usage</span>
+            <div class="tbl-actions"><button class="hbtn" onclick="exportStackCSV()">⬇ CSV</button></div>
+          </div>
+          <table><thead><tr>
+            <th onclick="sortStack('func')">Function</th>
+            <th onclick="sortStack('size')">Frame (own)</th>
+            <th onclick="sortStack('worst_case')">Worst-case ▼</th>
+            <th onclick="sortStack('type')">Type</th>
+            <th onclick="sortStack('file')">File:Line</th>
+            <th>Deepest path</th>
+          </tr></thead><tbody id="stack-tbody"></tbody></table>
+        </div>
+        <div class="card-wrap" id="stack-cg-panel" style="display:none">
+          <div class="tbl-hdr">📊 Worst-case call chains <span class="sub">-fcallgraph-info=su,da</span></div>
+          <table><thead><tr>
+            <th>Entry function</th><th>Worst-case (bytes)</th><th>Own frame</th><th>Deepest path</th><th></th>
+          </tr></thead><tbody id="stack-cg-tbody"></tbody></table>
+        </div>
+        <div class="card-wrap" id="stack-unbounded-card" style="display:none">
+          <div class="tbl-hdr" style="color:var(--red)">⚠ Unbounded stack</div>
+          <table><thead><tr><th>Function</th><th>File</th></tr></thead>
+          <tbody id="stack-unbounded"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEBUG — always accessible via showDebugDirect() even without files -->
+    <div class="pane" id="pane-dbg">
+
+      <!-- Toolchain diagnostics -->
+      <div class="card-wrap" style="margin-bottom:12px">
+        <div class="tbl-hdr">🔬 Toolchain diagnostics
+          <span class="sub">runs nm, readelf, size on your ELF</span>
+          <div class="tbl-actions">
+            <button class="hbtn" onclick="runDebug()">▶ Run</button>
+          </div>
+        </div>
+        <div id="dbg-out" class="dbg-out" style="min-height:60px">
+          Load an ELF file and click Run, or check the Diagnostic log below for file load errors.
+        </div>
+      </div>
+
+      <!-- Diagnostic activity log -->
+      <div class="card-wrap" style="margin-bottom:12px">
+        <div class="tbl-hdr">📋 Diagnostic log
+          <span class="sub">file loads · analysis · errors</span>
+          <div class="tbl-actions" style="align-items:center;gap:8px">
+            <label style="font-size:11px;color:var(--dim);display:flex;align-items:center;gap:4px">
+              <input type="checkbox" id="diag-verbose" style="accent-color:var(--acc)"
+                onchange="diagSetVerbose(this.checked)">
+              Verbose (include navigation)
+            </label>
+            <button class="hbtn" onclick="clearDiagLog()">Clear</button>
+            <button class="hbtn" onclick="copyDiagLog()">📋 Copy</button>
+          </div>
+        </div>
+        <pre id="diag-log-out" style="font:11px var(--mono);color:var(--dim);white-space:pre-wrap;overflow-y:auto;max-height:40vh;padding:10px;background:var(--bg);margin:0">[Linker MemMap Viewer — diagnostic log ready]
+Drop files or run analysis to see activity here.
+</pre>
+      </div>
+
+      <!-- Disassembly debug -->
+      <div class="card-wrap">
+        <div class="tbl-hdr">💻 Disassembly debug log
+          <span class="sub">updates on every Inspect</span>
+          <div class="tbl-actions">
+            <button class="hbtn" onclick="renderDisasmDebug()">Refresh</button>
+            <button class="hbtn" onclick="clearDisasmDebug()">Clear</button>
+          </div>
+        </div>
+        <pre id="disasm-dbg-out" style="font:11px var(--mono);color:var(--dim);white-space:pre-wrap;overflow-y:auto;max-height:40vh;padding:10px;background:var(--bg);margin:0">No disassembly yet.</pre>
+      </div>
+
+    </div>
+
+
+    <!-- ── INTERRUPTS / ISR HEALTH ── -->
+    <div class="pane" id="pane-isr">
+
+      <div class="isr-header-row">
+        <div>
+          <div style="font:700 14px var(--ui);color:var(--txt)">⚡ Interrupt Subroutine Health</div>
+          <div style="font-size:11px;color:var(--dim);margin-top:2px">
+            Stack budget · Call depth · Processing estimate · Hazard detection
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="run-btn" id="isr-analyse-btn" style="width:auto;padding:8px 18px;margin:0"
+            onclick="runIsrAnalysis()">⚡ Analyse ISRs</button>
+        </div>
+      </div>
+
+      <!-- Data source status bar -->
+      <div class="isr-data-bar" id="isr-data-bar">
+        <span class="isr-dsrc" id="isr-src-elf">⚪ ELF: not loaded</span>
+        <span class="isr-dsrc" id="isr-src-su" >⚪ .su: not loaded <span style="font-size:10px;opacity:.8">(stack frames)</span></span>
+        <span class="isr-dsrc" id="isr-src-ci" >⚪ .ci: not loaded <span style="font-size:10px;opacity:.8">(call depths)</span></span>
+        <span class="isr-dsrc" id="isr-src-ld" >⚪ .ld: not loaded <span style="font-size:10px;opacity:.8">(fast-mem sections)</span></span>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty" id="isr-empty">
+        <div class="eico">⚡</div>
+        <h3>Load an ELF to identify interrupts</h3>
+        <p>
+          Drop a <strong>.elf</strong> file and click <strong>Analyse ELF</strong>, then click <strong>⚡ Analyse ISRs</strong>.<br>
+          For stack frame sizes add <strong>.su</strong> files (compile with <code>-fstack-usage</code>).<br>
+          For call-depth analysis add <strong>.ci</strong> files (<code>-fcallgraph-info=su,da</code>).
+        </p>
+      </div>
+
+      <div id="isr-content" style="display:none">
+
+        <!-- Summary stat bar -->
+        <div class="sg" id="isr-stats"></div>
+
+        <!-- Hardware context overhead notice -->
+        <div class="card-wrap" id="isr-hw-card">
+          <div class="tbl-hdr">🖥 Hardware context-save overhead
+            <span class="sub">added to every ISR stack budget — not visible in .su files</span>
+          </div>
+          <div id="isr-hw-body" style="padding:10px 14px;font-size:12px;color:var(--dim);line-height:1.7"></div>
+        </div>
+
+        <!-- ISR health table -->
+        <div class="card-wrap">
+          <div class="tbl-hdr">
+            ⚡ ISR health table
+            <span class="sub">sorted by worst-case total stack budget</span>
+            <div class="tbl-actions" style="gap:8px">
+              <span id="isr-hazard-summary" style="font-size:11px"></span>
+              <button class="hbtn" onclick="exportIsrCSV()">⬇ CSV</button>
+            </div>
+          </div>
+          <div class="filter-bar" style="border-top:none">
+            <input class="search" id="isr-q" placeholder="Filter ISRs…" oninput="filterIsrs()">
+            <select class="fsel" id="isr-arch-class" onchange="filterIsrs()">
+              <option value="">All classes</option>
+              <option value="fault">Fault handlers</option>
+              <option value="nmi">NMI</option>
+              <option value="system">System (SysTick/SVC/PendSV)</option>
+              <option value="peripheral">Peripheral IRQ</option>
+              <option value="unknown">Unknown</option>
+            </select>
+            <select class="fsel" id="isr-hazard-filter" onchange="filterIsrs()">
+              <option value="">All (incl. safe)</option>
+              <option value="error">Errors only</option>
+              <option value="any">Any hazard</option>
+            </select>
+            <span class="cnt" id="isr-cnt"></span>
+          </div>
+          <table id="isr-tbl"><thead><tr>
+            <th onclick="sortIsrs('func_name')">ISR name</th>
+            <th onclick="sortIsrs('code_size')" title="Symbol size from ELF">Code size</th>
+            <th onclick="sortIsrs('hw_overhead')" title="Hardware auto-push on entry — ARM saves 8 regs, ESP32 saves up to 16">HW save</th>
+            <th onclick="sortIsrs('own_frame')" title="ISR-body frame from -fstack-usage .su file">Own frame</th>
+            <th onclick="sortIsrs('worst_case_chain')" title="Own + deepest callee chain from -fcallgraph-info .ci file">Call chain</th>
+            <th onclick="sortIsrs('total_stack_budget')" title="hw_overhead + worst-case chain = total bytes consumed on stack">Total budget ▼</th>
+            <th onclick="sortIsrs('call_chain_depth')" title="Number of function call hops in deepest path">Depth</th>
+            <th onclick="sortIsrs('est_cycles')" title="Rough estimate: code_size / avg_bytes_per_insn × avg_CPI">Est. cycles</th>
+            <th title="In IRAM / ITCM fast-memory section">Fast mem</th>
+            <th title="Hazardous function calls detected in ISR or its callees">Hazards</th>
+          </tr></thead><tbody id="isr-tbody"></tbody></table>
+        </div>
+
+        <!-- Hazard detail panel — appears when ISR with hazards is selected -->
+        <div class="card-wrap" id="isr-hazard-card" style="display:none">
+          <div class="tbl-hdr">⚠ Hazard detail
+            <span class="sub" id="isr-hazard-title"></span>
+            <div class="tbl-actions">
+              <button class="hbtn" onclick="closeIsrHazard()">✕</button>
+            </div>
+          </div>
+          <div id="isr-hazard-body" style="padding:0"></div>
+        </div>
+
+        <!-- Stack budget explainer -->
+        <div class="card-wrap">
+          <div class="tbl-hdr">📚 ISR stack budget explained</div>
+          <div style="padding:12px 16px;font-size:12px;color:var(--dim);line-height:1.9">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;margin-bottom:10px">
+              <div>
+                <strong style="color:var(--txt)">Why ISR stack is larger than .su reports</strong><br>
+                The compiler's <code>-fstack-usage</code> output only shows what
+                <em>your code's prologue pushes</em>. Before your first instruction runs,
+                the CPU (ARM Cortex-M) or OS (Linux) has already pushed a context frame.
+                On Cortex-M this is 8 registers × 4 bytes = 32 bytes; with FPU lazy
+                stacking up to 72 additional bytes can be saved. <em>Add this overhead
+                to every ISR's frame budget.</em>
+              </div>
+              <div>
+                <strong style="color:var(--txt)">Why nested interrupts multiply consumption</strong><br>
+                If your system allows interrupt nesting (ARM: PRIMASK=0 / configurable
+                NVIC priority), a high-priority IRQ can preempt a running ISR.
+                At worst, every enabled ISR's full stack budget is simultaneously
+                consumed. Your task stack needs room for the deepest nesting chain.
+                Total = Σ(task_frame) + Σ(concurrent_ISR_budgets).
+              </div>
+              <div>
+                <strong style="color:var(--txt)">Fast memory requirement</strong><br>
+                ISR latency = interrupt latency + ISR instruction fetch time.
+                If ISR code sits in flash (slow), every fetch takes 3–8× longer
+                than SRAM/TCAM. On ESP32, ISRs <em>must</em> be decorated with
+                <code>IRAM_ATTR</code>. On STM32/S32K, place ISRs in ITCM via
+                <code>__attribute__((section(".itcm_code")))</code>.
+              </div>
+              <div>
+                <strong style="color:var(--txt)">Processing time estimate</strong><br>
+                "Est. cycles" = (code_size ÷ avg_bytes_per_insn) × avg_CPI.
+                This is a rough order-of-magnitude only — compilers mix instruction
+                sizes, pipelines vary, and cache effects dominate. Use it to
+                compare ISRs relative to each other, not as an absolute timing.
+                For accurate measurement, use a logic analyser or DWT cycle counter.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /isr-content -->
+    </div><!-- /pane-isr -->
+
+        <!-- ── C++ ARTIFACTS ── -->
+    <div class="pane" id="pane-cpp">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <div>
+          <div style="font:700 14px var(--ui);color:var(--txt)">🔷 C++ Artifact Analysis</div>
+          <div style="font-size:11px;color:var(--dim);margin-top:2px">Vtables · RTTI · Templates · Exception tables · PLT/GOT · Constructor order</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div id="cpp-native-note" style="display:none;font-size:10px;color:var(--ora);max-width:280px;line-height:1.4;border:1px solid rgba(210,153,34,.4);border-radius:4px;padding:4px 8px;background:rgba(210,153,34,.06)"></div>
+          <button class="run-btn" id="cpp-analyse-btn" style="width:auto;padding:8px 18px;margin:0" onclick="runCppAnalysis()">&#9654; Analyse C++</button>
+        </div>
+      </div>
+      <div id="cpp-error" style="display:none;padding:10px 14px;background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.4);border-radius:6px;color:var(--red);font-size:12px;margin-bottom:12px"></div>
+      <div class="empty" id="cpp-empty">
+        <div class="eico">🔷</div>
+        <h3>C++ analysis not yet run</h3>
+        <p>Load an ELF binary and click <strong>Analyse C++</strong>.<br>
+        Works with any C++ binary: ARM, ESP32, or native Linux x86-64.<br>
+        Select the matching target chip first so the correct c++filt is used.</p>
+      </div>
+      <div id="cpp-content" style="display:none">
+        <div class="sg" id="cpp-stats"></div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">🗂 Vtables &amp; RTTI <span class="sub">polymorphic classes from _ZTV* / _ZTI* symbols</span></div>
+          <div style="padding:8px 14px;font-size:11px;color:var(--dim);border-bottom:1px solid var(--bdr)">
+            <strong style="color:var(--txt)">What is a vtable?</strong>
+            Every class with a <code>virtual</code> function gets a vtable — a read-only array of function pointers.
+            Each object has a hidden <em>vptr</em> (first 8 or 4 bytes) → vtable → function.
+            Virtual dispatch = 3 memory accesses vs 1 for non-virtual.
+            <strong style="color:var(--txt)">Native vs cross-compiled:</strong> on x86-64 Linux vtables live in <code>.data.rel.ro</code> (relocated by ld.so);
+            on ARM/ESP32 they live in <code>.rodata</code> in flash (absolute addresses, no relocation needed).
+          </div>
+          <table><thead><tr>
+            <th>Class name</th><th>Vtable symbol</th><th>Size</th><th>Virtual slots</th><th>RTTI</th>
+          </tr></thead><tbody id="cpp-vtable-body"></tbody></table>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">📐 Template instantiations <span class="sub">grouped by template family · click row to expand</span></div>
+          <div style="padding:8px 14px;font-size:11px;color:var(--dim);border-bottom:1px solid var(--bdr)">
+            <strong style="color:var(--txt)">Template code bloat:</strong>
+            Each distinct argument set compiles to a <em>separate copy</em> of the code.
+            Reduce with explicit instantiation (<code>template class std::vector&lt;int&gt;;</code>), type erasure, or policy classes.
+          </div>
+          <table><thead><tr><th>Template</th><th>Instances</th><th>Total size</th><th>Sample</th></tr></thead><tbody id="cpp-tmpl-body"></tbody></table>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">⚡ Exception handling <span class="sub">.eh_frame · .gcc_except_table · .ARM.exidx</span></div>
+          <div style="padding:8px 14px;font-size:11px;color:var(--dim);border-bottom:1px solid var(--bdr)">
+            <strong style="color:var(--txt)">Exception tables exist even without try/catch.</strong>
+            GCC emits <code>.eh_frame</code> CFI for every function unless you pass <code>-fno-exceptions -fno-unwind-tables</code>.
+            On ARM: <code>.ARM.exidx</code> + <code>.ARM.extab</code> (compact 4-byte-per-function format).
+            On x86-64 native: removing <code>.eh_frame</code> breaks GDB, perf, and glibc backtrace() — don't remove it.
+          </div>
+          <table><thead><tr><th>Section</th><th>Size</th><th>Purpose</th></tr></thead><tbody id="cpp-exc-body"></tbody></table>
+          <div id="cpp-exc-note" style="padding:8px 14px;font-size:11px;color:var(--dim)"></div>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">🔗 Dynamic linking — PLT / GOT <span class="sub">native Linux only — absent in cross-compiled firmware</span></div>
+          <div id="cpp-dynamic-wrap"></div>
+        </div>
+        <div class="card-wrap">
+          <div class="tbl-hdr">🔨 Global constructor / destructor order <span class="sub">.init_array · .fini_array — run before/after main()</span></div>
+          <div id="cpp-init-body">
+            <div style="padding:8px 14px;font-size:11px;color:var(--dim)">
+              <strong style="color:var(--txt)">Static initialisation order fiasco:</strong>
+              Constructors of globals in <em>different translation units</em> run in link order (undefined across TUs).
+              If global A's constructor reads global B and B hasn't been constructed yet, you get undefined behaviour.
+              Fix: use Meyers singleton (<code>static Type&amp; get()</code>) to enforce lazy initialisation order.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /app -->
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<!-- Startup / project dialog -->
+<div id="startup-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center">
+  <div id="startup-dialog" style="background:var(--surf);border:1px solid var(--bdr2);border-radius:12px;width:min(440px,92vw);padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.5)">
+    <div style="font:800 18px var(--ui);color:var(--txt);margin-bottom:6px">Welcome back</div>
+    <div style="font-size:12px;color:var(--dim);margin-bottom:18px" id="startup-project-name">A saved project was found.</div>
+    <div id="startup-meta" style="background:var(--s2);border:1px solid var(--bdr);border-radius:8px;padding:12px;font-size:11px;color:var(--dim);margin-bottom:18px;line-height:1.8"></div>
+    <div style="display:flex;gap:10px">
+      <button class="run-btn" style="flex:1;margin:0" onclick="startupLoadProject()">📂 Load saved project</button>
+      <button class="hbtn" style="flex:1" onclick="startupFresh()">✦ Start fresh</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <div class="modal-icon" id="modal-icon">📦</div>
+      <div>
+        <div class="modal-title" id="modal-title">Details</div>
+        <div class="modal-subtitle" id="modal-subtitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div class="modal-tabs" id="modal-tabs"></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<div id="tip"></div>
+
+<script src="/static/app.js?v=1780654538"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  loadFeatureState();
+  buildFeaturesPanel();
+  initDropZones();
+  initStackDrop();
+  initSourceDrop();
+  initTargetSelector();
+  _updateTargetBadge(localStorage.getItem('lmv_target') || 'arm');
+  initTheme();
+  initPathDir();
+  initSettingsState();
+  initTabNav();
+
+  // Update caret on settings panel toggle
+  const _origToggle = window.toggleSettingsPanel;
+  window.toggleSettingsPanel = function() {
+    _origToggle();
+    const panel = document.getElementById('settings-panel');
+    const caret = document.getElementById('settings-caret');
+    if (caret) caret.textContent = panel?.classList.contains('open') ? '▾' : '▸';
+  };
+
+  // Restore auto-close checkbox
+  const _ac = localStorage.getItem('lmv_settings_autoclose');
+  const _cb = document.getElementById('settings-autoclose');
+  if (_cb && _ac === '0') _cb.checked = false;
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    const mod = e.metaKey || e.ctrlKey;
+    if (mod && e.key === 'k') { e.preventDefault(); switchTab('a2l'); document.getElementById('a2l-addr')?.focus(); }
+    if (mod && e.key === '/') { e.preventDefault(); document.getElementById('sym-q')?.focus(); }
+  });
+
+  // Update ISR data bar when ISR tab is opened
+  document.querySelectorAll('.tab[data-pane="isr"]').forEach(t => {
+    t.addEventListener('click', () => {
+      if (typeof updateIsrDataBar === 'function') updateIsrDataBar();
+    });
+  });
+
+  // Show startup project dialog (if a saved project exists)
+  setTimeout(checkStartupProject, 400);
+
+  console.log('[boot] Linker MemMap ready');
+});
+</script>
+</body>
+</html>

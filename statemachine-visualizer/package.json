@@ -1,0 +1,171 @@
+{
+  "name": "statemachine-visualizer",
+  "displayName": "C/C++ Dependency Visualizer",
+  "description": "Workspace-wide file dependency graph for C/C++ projects: black-box file mesh with expand-to-functions, plus state machine diagram extraction.",
+  "version": "1.3.0",
+  "publisher": "ArunnK",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Visualization", "Programming Languages", "Other"],
+  "activationEvents": [
+    "onView:statemachineVisualizer.sidebar",
+    "onCommand:statemachineVisualizer.openFileGraph",
+    "onCommand:statemachineVisualizer.openVisualization",
+    "workspaceContains:**/*.c",
+    "workspaceContains:**/*.cpp",
+    "workspaceContains:**/*.h",
+    "workspaceContains:**/*.hpp"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "statemachineVisualizer",
+          "title": "C/C++ Dependencies",
+          "icon": "resources/activity-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "statemachineVisualizer": [
+        {
+          "id": "statemachineVisualizer.sidebar",
+          "name": "State Machines in Workspace"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "statemachineVisualizer.openFileGraph",
+        "title": "C/C++ Dependency Graph: Open Workspace Map",
+        "icon": "$(type-hierarchy)"
+      },
+      {
+        "command": "statemachineVisualizer.refresh",
+        "title": "C/C++ Dependency Graph: Rescan Workspace",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "statemachineVisualizer.openSMForFile",
+        "title": "C/C++ Dependency Graph: View State Machine for File"
+      },
+      {
+        "command": "statemachineVisualizer.openVisualization",
+        "title": "State Machines: Open Visualization"
+      },
+      {
+        "command": "statemachineVisualizer.revealInFile",
+        "title": "State Machines: Go to Definition",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "statemachineVisualizer.exportGraphviz",
+        "title": "State Machines: Export Diagram via Graphviz (.dot/.svg)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "statemachineVisualizer.openFileGraph",
+          "when": "resourceExtname == '.c' || resourceExtname == '.cpp' || resourceExtname == '.h' || resourceExtname == '.hpp' || resourceExtname == '.cc' || resourceExtname == '.cxx' || resourceExtname == '.hxx'",
+          "group": "navigation@99"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "statemachineVisualizer.openFileGraph",
+          "when": "resourceExtname == '.c' || resourceExtname == '.cpp' || resourceExtname == '.h' || resourceExtname == '.hpp' || resourceExtname == '.cc' || resourceExtname == '.cxx' || resourceExtname == '.hxx'",
+          "group": "navigation@99"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "statemachineVisualizer.openFileGraph",
+          "when": "view == statemachineVisualizer.sidebar",
+          "group": "navigation"
+        },
+        {
+          "command": "statemachineVisualizer.refresh",
+          "when": "view == statemachineVisualizer.sidebar",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "statemachineVisualizer.revealInFile",
+          "when": "view == statemachineVisualizer.sidebar && viewItem == stateMachine",
+          "group": "inline"
+        },
+        {
+          "command": "statemachineVisualizer.exportGraphviz",
+          "when": "view == statemachineVisualizer.sidebar && viewItem == stateMachine"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "State Machine Visualizer",
+      "properties": {
+        "statemachineVisualizer.scan.include": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["**/*.c", "**/*.cc", "**/*.cpp", "**/*.cxx", "**/*.h", "**/*.hpp", "**/*.hxx"],
+          "description": "Glob patterns for files to scan for state machines."
+        },
+        "statemachineVisualizer.scan.exclude": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["**/node_modules/**", "**/build/**", "**/out/**", "**/.git/**", "**/cmake-build-*/**"],
+          "description": "Glob patterns to exclude from scanning."
+        },
+        "statemachineVisualizer.parsing.mode": {
+          "type": "string",
+          "enum": ["heuristic", "ctags-enhanced"],
+          "enumDescriptions": [
+            "Pure regex/heuristic parsing. No external dependencies, works immediately.",
+            "Heuristic parsing plus a ctags symbol index for more accurate cross-file caller/callee resolution in the I/O black-box view."
+          ],
+          "default": "heuristic",
+          "description": "How source files are analyzed. Heuristic mode needs no external tools. Other modes are opt-in and require the matching tool path below to be set."
+        },
+        "statemachineVisualizer.tools.ctagsPath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional. Path to a universal-ctags executable. If set, enables 'ctags-enhanced' parsing mode for better cross-file symbol resolution (who calls this function from other files). Not required for default heuristic mode."
+        },
+        "statemachineVisualizer.tools.cscopePath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional. Path to a cscope executable. If set, used to enrich the black-box I/O view with workspace-wide caller/callee information beyond the current file. Not required for default heuristic mode."
+        },
+        "statemachineVisualizer.tools.clangPath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional, reserved for future use. Path to clang/libclang for full AST-based semantic parsing instead of heuristics. Leave blank unless you specifically need clang-accurate parsing of complex macros/templates."
+        },
+        "statemachineVisualizer.tools.graphvizPath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional. Path to the Graphviz 'dot' executable. If set, enables exporting the state diagram as a .dot/.svg file via Graphviz layout instead of the built-in webview renderer. Not required to use the extension."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.21.5",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "cytoscape": "^3.30.1",
+    "cytoscape-dagre": "^2.5.0",
+    "dagre": "^0.8.5"
+  }
+}

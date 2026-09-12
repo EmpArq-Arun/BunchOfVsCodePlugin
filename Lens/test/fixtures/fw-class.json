@@ -1,0 +1,769 @@
+{
+  "diagram_type": "class",
+  "elements": [
+    {
+      "bases": [],
+      "display_name": "ISpi",
+      "id": "100",
+      "is_abstract": true,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "transfer",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": true,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "transfer",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "bool"
+        },
+        {
+          "access": "public",
+          "display_name": "~ISpi",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "~ISpi",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": ""
+        }
+      ],
+      "name": "ISpi",
+      "namespace": "fw::hal",
+      "source_location": {
+        "column": 7,
+        "file": "hal.hpp",
+        "line": 10,
+        "translation_unit": "hal.cpp"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [],
+      "display_name": "IUart",
+      "id": "101",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "write",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "write",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        },
+        {
+          "access": "public",
+          "display_name": "~IUart",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": false,
+          "name": "~IUart",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": ""
+        }
+      ],
+      "name": "IUart",
+      "namespace": "fw::hal",
+      "source_location": {
+        "column": 7,
+        "file": "hal.hpp",
+        "line": 30,
+        "translation_unit": "hal.cpp"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [],
+      "display_name": "ITimer",
+      "id": "102",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "start",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "start",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        }
+      ],
+      "name": "ITimer",
+      "namespace": "fw::hal",
+      "source_location": {
+        "column": 7,
+        "file": "hal.hpp",
+        "line": 50,
+        "translation_unit": "hal.cpp"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [
+        {
+          "access": "public",
+          "id": "100",
+          "is_virtual": false
+        }
+      ],
+      "display_name": "SpiDriver",
+      "id": "103",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [
+        {
+          "access": "private",
+          "is_static": false,
+          "name": "base_",
+          "type": "uint32_t volatile *"
+        },
+        {
+          "access": "private",
+          "is_static": true,
+          "name": "instances_",
+          "type": "uint8_t"
+        }
+      ],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "transfer",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "transfer",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "bool"
+        },
+        {
+          "access": "public",
+          "display_name": "SpiDriver",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": true,
+          "is_constructor": true,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": false,
+          "name": "SpiDriver",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": ""
+        },
+        {
+          "access": "public",
+          "display_name": "SpiDriver(const SpiDriver &)",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": true,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": true,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": false,
+          "name": "SpiDriver",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": ""
+        },
+        {
+          "access": "public",
+          "display_name": "operator=",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": true,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": true,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": true,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": false,
+          "name": "operator=",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "SpiDriver &"
+        },
+        {
+          "access": "public",
+          "display_name": "operator=",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": true,
+          "is_noexcept": true,
+          "is_operator": true,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": false,
+          "name": "operator=",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "SpiDriver &"
+        },
+        {
+          "access": "public",
+          "display_name": "~SpiDriver",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": true,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "~SpiDriver",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": ""
+        }
+      ],
+      "name": "SpiDriver",
+      "namespace": "fw::hal",
+      "source_location": {
+        "column": 7,
+        "file": "hal.hpp",
+        "line": 70,
+        "translation_unit": "hal.cpp"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [
+        {
+          "access": "public",
+          "id": "100",
+          "is_virtual": true
+        },
+        {
+          "access": "public",
+          "id": "101",
+          "is_virtual": true
+        }
+      ],
+      "display_name": "DuplexPort",
+      "id": "104",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "transfer",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "transfer",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "bool"
+        },
+        {
+          "access": "public",
+          "display_name": "write",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": true,
+          "name": "write",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "void"
+        }
+      ],
+      "name": "DuplexPort",
+      "namespace": "fw::hal",
+      "source_location": {
+        "column": 7,
+        "file": "hal.hpp",
+        "line": 90,
+        "translation_unit": "hal.cpp"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [
+        {
+          "access": "private",
+          "id": "108",
+          "is_virtual": false
+        }
+      ],
+      "display_name": "RingBuffer",
+      "id": "105",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": true,
+      "is_union": false,
+      "members": [
+        {
+          "access": "private",
+          "is_static": false,
+          "name": "storage_",
+          "type": "T[N]"
+        }
+      ],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "push",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": false,
+          "name": "push",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "bool"
+        },
+        {
+          "access": "public",
+          "display_name": "operator[]",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": false,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": true,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": false,
+          "name": "operator[]",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "T &"
+        }
+      ],
+      "name": "RingBuffer",
+      "namespace": "fw::hal",
+      "source_location": {
+        "column": 7,
+        "file": "hal.hpp",
+        "line": 110,
+        "translation_unit": "hal.cpp"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [],
+      "display_name": "SensorTask",
+      "id": "106",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": false,
+      "members": [],
+      "methods": [
+        {
+          "access": "public",
+          "display_name": "poll",
+          "is_const": false,
+          "is_consteval": false,
+          "is_constexpr": false,
+          "is_constructor": false,
+          "is_copy_assignment": false,
+          "is_coroutine": true,
+          "is_defaulted": false,
+          "is_deleted": false,
+          "is_move_assignment": false,
+          "is_noexcept": false,
+          "is_operator": false,
+          "is_pure_virtual": false,
+          "is_static": false,
+          "is_virtual": false,
+          "name": "poll",
+          "parameters": [],
+          "source_location": {
+            "column": 10,
+            "file": "x.cc",
+            "line": 1,
+            "translation_unit": "x.cc"
+          },
+          "template_parameters": [],
+          "type": "Task<void>"
+        }
+      ],
+      "name": "SensorTask",
+      "namespace": "fw::app",
+      "source_location": {
+        "column": 7,
+        "file": "hal.hpp",
+        "line": 130,
+        "translation_unit": "hal.cpp"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [],
+      "display_name": "RegisterView",
+      "id": "107",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": false,
+      "is_template": false,
+      "is_union": true,
+      "members": [
+        {
+          "access": "public",
+          "is_static": false,
+          "name": "raw",
+          "type": "uint32_t"
+        },
+        {
+          "access": "public",
+          "is_static": false,
+          "name": "bits",
+          "type": "Bits"
+        }
+      ],
+      "methods": [],
+      "name": "RegisterView",
+      "namespace": "fw::hal",
+      "source_location": {
+        "column": 7,
+        "file": "hal.hpp",
+        "line": 150,
+        "translation_unit": "hal.cpp"
+      },
+      "template_parameters": [],
+      "type": "class"
+    },
+    {
+      "bases": [],
+      "display_name": "PinConfig",
+      "id": "108",
+      "is_abstract": false,
+      "is_nested": false,
+      "is_struct": true,
+      "is_template": false,
+      "is_union": false,
+      "members": [
+        {
+          "access": "public",
+          "is_static": false,
+          "name": "port",
+          "type": "uint8_t"
+        },
+        {
+          "access": "public",
+          "is_static": false,
+          "name": "pin",
+          "type": "uint8_t"
+        }
+      ],
+      "methods": [],
+      "name": "PinConfig",
+      "namespace": "fw::hal",
+      "source_location": {
+        "column": 7,
+        "file": "hal.hpp",
+        "line": 170,
+        "translation_unit": "hal.cpp"
+      },
+      "template_parameters": [],
+      "type": "class"
+    }
+  ],
+  "name": "fw_class",
+  "package_type": "namespace",
+  "relationships": [
+    {
+      "access": "public",
+      "destination": "100",
+      "source": "103",
+      "type": "extension"
+    },
+    {
+      "access": "public",
+      "destination": "100",
+      "source": "104",
+      "type": "extension"
+    },
+    {
+      "access": "public",
+      "destination": "101",
+      "source": "104",
+      "type": "extension"
+    },
+    {
+      "access": "private",
+      "destination": "108",
+      "source": "105",
+      "type": "extension"
+    },
+    {
+      "access": "private",
+      "destination": "107",
+      "label": "regs",
+      "source": "103",
+      "type": "association"
+    },
+    {
+      "destination": "999999",
+      "source": "103",
+      "type": "dependency"
+    }
+  ],
+  "title": "Firmware HAL",
+  "using_namespace": "fw"
+}
